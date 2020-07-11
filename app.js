@@ -6,12 +6,9 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  if (msg.content === '!!ping') {
-    msg.reply('pong');
-  }
-
   if (msg.content === '!!abdest') {
-    msg.reply('A B D E S T L E N D İ N');
+    msg.channel.send('A B D E S T L E N D İ N');
+    msg.channel.send("https://i.pinimg.com/originals/c4/27/7d/c4277d9d382493ff8c55e975d438ed1c.gif");
   }
 });
 
