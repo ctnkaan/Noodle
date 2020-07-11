@@ -3,9 +3,13 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+
+  client.user.setActivity("!!help for commands");
 });
 
 client.on('message', msg => {
+
+
 
   //displays a giff img
 
@@ -13,10 +17,17 @@ client.on('message', msg => {
     msg.channel.send('A B D E S T L E N D İ N');
     msg.channel.send("https://i.pinimg.com/originals/c4/27/7d/c4277d9d382493ff8c55e975d438ed1c.gif");
   }
+
+
+
+  //displays all commands
+
   if (msg.content === '!!help') {
     msg.channel.send(" Commands \n!!Abdest\n!!Roll\n!!Penis\n!!Join");
 
   }
+
+
 
   //gets input and rolls between 1 and user input
 
@@ -42,6 +53,8 @@ client.on('message', msg => {
 	msg.channel.send(`${msg.author}: `+ a);
 }
 
+
+
   //gives the user a number indicating their penis size between 0-45 and then comments on it
 
   if (msg.content === "!!penis") {
@@ -57,6 +70,8 @@ client.on('message', msg => {
     msg.reply("ANASKMM CANAVAAAAR");
   }
 }
+
+
 
  //connects to users room
 
