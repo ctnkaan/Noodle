@@ -13,11 +13,17 @@ client.on('message', msg => {
     msg.channel.send('A B D E S T L E N D İ N');
     msg.channel.send("https://i.pinimg.com/originals/c4/27/7d/c4277d9d382493ff8c55e975d438ed1c.gif");
   }
+  if (msg.content === '!!help') {
+    msg.channel.send(" Commands \n!!Abdest\n!!Roll\n!!Penis\n!!Join");
+
+  }
 
   if(msg.content === "!!roll"){
-    var a = Math.floor(Math.random() * 1000)+1;
+const num = prompt('Enter a number: ');
+if(0<num<1000){
+  var a = Math.floor(Math.random() * num)+1;
     msg.reply(a);
-
+}
 }
   //gives the user a number indicating their penis size between 0-45 and then comments on it
 
