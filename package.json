@@ -1,0 +1,22 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "Disord bot developed by kaan, mehmetcan and can.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaViYboct/Discord-Bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaViYboct/Discord-Bot/issues"
+  },
+  "homepage": "https://github.com/MaViYboct/Discord-Bot#readme",
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  }
+}
