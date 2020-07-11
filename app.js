@@ -18,13 +18,30 @@ client.on('message', msg => {
 
   }
 
-  if(msg.content === "!!roll"){
-const num = prompt('Enter a number: ');
-if(0<num<1000){
-  var a = Math.floor(Math.random() * num)+1;
-    msg.reply(a);
+  //gets input and rolls between 1 and user input
+
+  if (!msg.content.startsWith("!!") || msg.author.bot) return;
+
+  const args = msg.content.slice("!!".length).split(' ');
+  const command = args.shift().toLowerCase();
+
+  if (command === 'roll') {
+	if (!args.length) {
+		return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
+	}
+
+  var a = Math.floor(Math.random() * args)+1;
+
+  if (a <= 0) {
+    return msg.channel.send(`Please enter a number above 0 , ${msg.author}!`);
+  }
+  if ((a-1) !== (a-1)) {
+    return msg.channel.send(`Please enter a number , ${msg.author}!`);
+  }
+
+	msg.channel.send(`${msg.author}: `+ a);
 }
-}
+
   //gives the user a number indicating their penis size between 0-45 and then comments on it
 
   if (msg.content === "!!penis") {
