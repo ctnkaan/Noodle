@@ -164,6 +164,70 @@ client.on('message', msg => {
   }
 
 
+
+//moderation
+//kick
+  switch (args[0]) {
+case 'kick':
+
+const user = msg.mentions.users.first();
+
+        if(user){
+          const member = msg.guild.member(user);
+
+          if(member){
+            member.kick('kicking').then(() =>{
+              msg.reply('This user kicked from the server');
+            }).catch(err =>{
+              msg.reply('I am not able to kick that member')
+              console.log(err);
+            });
+          } else
+            msg.reply("This member is not kickable")
+          }
+
+        else {
+          msg.reply("That user is not member of this server ")
+
+        }
+break;
+}
+
+
+//ban
+switch (args[0]) {
+case 'ban':
+const user = msg.mentions.users.first();
+
+        if(user) {
+          const member = msg.guild.member(user);
+
+          if(member){
+            member.ban({ression:'se ya'}).then(() =>{
+              msg.reply('This user banned from the server!');
+            }).catch(err =>{
+              msg.reply('I am not able to ban this member');
+          }); }else{
+            msg.reply("This member is not banable")
+          }
+
+        }else {
+          msg.reply("That user is not member of this server ")
+
+        }
+  break;
+        }
+
+
+
+
+
+
+
+
+
+
+
 });
 
 
