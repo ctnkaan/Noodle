@@ -1,11 +1,22 @@
+//Made with love by Çetin Kaan Taşkıngenç, Mehmetcan Polat and Can Yılmazer
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const ytdl = require('ytdl-core');
+var ffmpeg = require('ffmpeg');
+
+var servers = {};
+
+
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   client.user.setActivity("!!help for commands");
 });
+
+
+
 
 client.on('message', msg => {
 
@@ -23,7 +34,7 @@ client.on('message', msg => {
   //displays all commands
 
   if (msg.content === '!!help') {
-    msg.channel.send(" Commands \n!!Abdest\n!!Roll\n!!Penis\n!!Join");
+    msg.channel.send(" Commands \n----------------\n\n!!Abdest\n!!Roll\n!!Penis");
 
   }
 
@@ -37,60 +48,115 @@ client.on('message', msg => {
   const command = args.shift().toLowerCase();
 
   if (command === 'roll') {
-	if (!args.length) {
-		return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
-	}
+    if (!args.length) {
+      return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
+    }
 
-  var a = Math.floor(Math.random() * args)+1;
+    var a = Math.floor(Math.random() * args) + 1;
 
-  if (a <= 0) {
-    return msg.channel.send(`Please enter a number above 0 , ${msg.author}!`);
+    if (a <= 0) {
+      return msg.channel.send(`Please enter a number above 0 , ${msg.author}!`);
+    }
+    if ((a - 1) !== (a - 1)) { //Checks if input is a number or not
+      return msg.channel.send(`Please enter a number , ${msg.author}!`);
+    }
+
+    msg.channel.send(`${msg.author}: ` + a);
   }
-  if ((a-1) !== (a-1)) {
-    return msg.channel.send(`Please enter a number , ${msg.author}!`);
-  }
-
-	msg.channel.send(`${msg.author}: `+ a);
-}
 
 
 
   //gives the user a number indicating their penis size between 0-45 and then comments on it
 
   if (msg.content === "!!penis") {
-  var a = Math.floor(Math.random() * 45)+1;
-  msg.reply(a+"cm");
-  if (a <= 5) {
-    msg.reply("Görünmüyor")
-  } else if (a <= 15) {
-    msg.reply("Ufacık");
-  } else if (a > 15 && a<=30) {
-    msg.reply("Nice dick bro");
-  } else {
-    msg.reply("ANASKMM CANAVAAAAR");
+    var a = Math.floor(Math.random() * 45) + 1;
+    msg.reply(a + "cm");
+    if (a <= 5) {
+      msg.reply("Görünmüyor")
+    } else if (a <= 15) {
+      msg.reply("Ufacık");
+    } else if (a > 15 && a <= 30) {
+      msg.reply("Nice dick bro");
+    } else {
+      msg.reply("ANASKMM CANAVAAAAR");
+    }
   }
-}
+
+});
+
+client.on('message', msg => {
+
+  let args = msg.content.substring("!!".length).split(" ");
+
+  switch (args[0]) {
+    case 'play':
+
+    function play(connection, msg) {
+      var server = servers[msg.guild.id];
+
+      server.dispatcher = connection.play(ytdl(server.queue[0], {filter: "audioonly"}));
+
+      server.queue.shift();
+
+      server.dispatcher.on("end", function(){
+
+        if (server.queue[0]){
+          play(connection, msg);
+        } else {
+          connection.disconnect();
+        }
+
+      })
+
+    }
+
+    if (!args[1]) {
+      msg.channel.send("Please provide a link");
+      return;
+    }
+
+    if (!msg.member.voice.channel) {
+      msg.channel.send("You must be in a voice channel.");
+      return;
+    }
+
+    if (!servers[msg.guild.id]) servers[msg.guild.id] = {
+      queue: []
+    }
+
+    var server = servers[msg.guild.id];
+
+    server.queue.push(args[1]);
+
+    if (!msg.member.voice.connection) msg.member.voice.channel.join().then(function(connection) {
+      play(connection, msg);
+    })
+    break;
+  }
+})
 
 
 
- //connects to users room
 
- client.on('message', async message => {
-   // Voice only works in guilds, if the message does not come from a guild,
-   // we ignore it
-   if (!message.guild) return;
 
-   if (message.content === '!!join') {
-     // Only try to join the sender's voice channel if they are in one themselves
-     if (message.member.voice.channel) {
-       const connection = await message.member.voice.channel.join();
-     } else {
-       message.reply('You need to join a voice channel first!');
-     }
-   }
+// //connects to users room
+//
+// client.on('message', async message => {
+//   // Voice only works in guilds, if the message does not come from a guild,
+//   // we ignore it
+//   if (!message.guild) return;
+//
+//   if (message.content === '!!join') {
+//     // Only try to join the sender's voice channel if they are in one themselves
+//     if (message.member.voice.channel) {
+//       const connection = await message.member.voice.channel.join();
+//     } else {
+//       message.reply('You need to join a voice channel first!');
+//     }
+//   }
+//
+// });
 
- });
 
- });
 
 client.login('NzMxNTE0MzM0NjIxOTkxMDI1.XwnjCQ.GyBLDAidTTpQr28ywMobPB7W2ZY');
