@@ -86,6 +86,7 @@ client.on('message', msg => {
 
 client.on('message', msg => {
 
+
   let args = msg.content.substring("!!".length).split(" ");
 
   switch (args[0]) {
@@ -131,31 +132,37 @@ client.on('message', msg => {
     if (!msg.member.voice.connection) msg.member.voice.channel.join().then(function(connection) {
       play(connection, msg);
     })
+
+
+    break;
+
+
+    //skip
+    case 'skip':
+    var server = servers[msg.guild.id];
+    if(server.dispatcher) server.dispatcher.end();
+    msg.channel.send("skipping the song");
+    break;
+
+
+    //stop
+    case 'stop':
+    var server = servers[msg.guild.id];
+    if(msg.guild.voice.connection){
+      for(var i = server.queue.length -1; i >=0; i--){
+        server.queue.splice(i, 1);
+      }
+      server.dispatcher.end();
+      msg.guild.voice.connection.disconnect();
+      msg.channel.send("Leaving the channel!!")
+      console.log('Stopped the queue')
+    }
+    if(msg.guild.connection) msg.guild.voice.connection.disconnect();
     break;
   }
-})
 
 
-
-
-
-// //connects to users room
-//
-// client.on('message', async message => {
-//   // Voice only works in guilds, if the message does not come from a guild,
-//   // we ignore it
-//   if (!message.guild) return;
-//
-//   if (message.content === '!!join') {
-//     // Only try to join the sender's voice channel if they are in one themselves
-//     if (message.member.voice.channel) {
-//       const connection = await message.member.voice.channel.join();
-//     } else {
-//       message.reply('You need to join a voice channel first!');
-//     }
-//   }
-//
-// });
+});
 
 
 
