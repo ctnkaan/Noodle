@@ -38,8 +38,33 @@ client.on('message', msg => {
 
   }
 
+//Countdown
 
+  if (!msg.content.startsWith("!!") || msg.author.bot) return;
 
+  let counta = msg.content.slice("!!".length).split(' ');
+  const commanda = counta.shift().toLowerCase();
+
+  if(commanda === "countdown"){
+
+    if (!counta.length) {
+      return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
+    }
+if(counta<0){
+  return msg.channel.send(`Countdown must be above 0, ${msg.author}!`);
+}
+
+    msg.channel.send("Countdown started "+counta+" secs ")
+  const counter = setInterval(() => {
+    if (counta > 0) {
+      console.log(counta)
+  counta--
+    } else {
+      msg.channel.send("Countdown is over")
+      clearInterval(counter)
+    }
+  }, 1000)
+}
   //gets input and rolls between 1 and user input
 
   if (!msg.content.startsWith("!!") || msg.author.bot) return;
