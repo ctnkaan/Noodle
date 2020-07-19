@@ -181,7 +181,7 @@ client.on('message', msg => {
       }
       server.dispatcher.end();
       msg.guild.voice.connection.disconnect();
-      msg.channel.send("Leaving the channel!!")
+      msg.channel.send("Leaving the channel.")
       console.log('Stopped the queue')
     }
     if(msg.guild.connection) msg.guild.voice.connection.disconnect();
@@ -257,4 +257,4 @@ const user = msg.mentions.users.first();
 
 
 
-client.login('NzMxNTE0MzM0NjIxOTkxMDI1.XwnjCQ.GyBLDAidTTpQr28ywMobPB7W2ZY');
+client.login('NzMxNTE0MzM0NjIxOTkxMDI1.XxS_-A.3nCYYcNiJ0xkYd2CMSztN3SnWOc');
