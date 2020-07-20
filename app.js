@@ -22,6 +22,27 @@ client.on('message', msg => {
 
 
 
+
+
+if(msg.content ==='!!rr'){
+msg.channel.send("determine who is 1Player who is 2Player then write !!rrs ")
+
+}
+
+
+
+if(msg.content ==="!!rrs"){
+var a = Math.floor(Math.random() * 2) + 1;
+if(a === 1){
+  msg.channel.send("Second player won the rr")
+  msg.channel.send("First Player           "+"   1P  --------  https://art.pixilart.com/123602c91f84bfa.gif 2P    --------"+"                      Second Player")
+}
+else {
+  msg.channel.send("First player won the rr")
+  msg.channel.send("Second Player                "+ "    2P  --------  https://art.pixilart.com/123602c91f84bfa.gif 1P    -------- " +     "                First Player")
+}
+
+}
   //displays a giff img
 
   if (msg.content === '!!abdest') {
