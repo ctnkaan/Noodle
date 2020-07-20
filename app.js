@@ -23,13 +23,11 @@ client.on('message', msg => {
 
 
 
-
+//russian roulette
 if(msg.content ==='!!rr'){
 msg.channel.send("determine who is 1Player who is 2Player then write !!rrs ")
 
 }
-
-
 
 if(msg.content ==="!!rrs"){
 var a = Math.floor(Math.random() * 2) + 1;
@@ -58,6 +56,26 @@ else {
     msg.channel.send(" Commands \n----------------\n\n!!Abdest\n!!Roll\n!!Penis");
 
   }
+
+
+
+//rock paper s
+if(msg.content === '!!rps'){
+  r =7;
+  msg.channel.send("Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter please")
+  msg.channel.send("https://www.vampiretools.com/wp-content/uploads/2018/09/psr.jpg")
+  msg.channel.send("!!! Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter please!!!")
+const counter = setInterval(() => {
+  if (r > -1) {
+    msg.channel.send(r)
+r--
+  } else {
+    clearInterval(counter)
+  }
+}, 1000)
+}
+
+
 
 //Countdown
 
