@@ -25,7 +25,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
 
-
+  // russian rulet game
   if (msg.content === "!!rr") {
     let a = Math.floor(Math.random() * bullets) + 1;
 
@@ -33,7 +33,7 @@ client.on('message', msg => {
       msg.channel.send("You Survived");
       bullets--;
     } else if (a === 1) {
-      msg.channel.send("You Died!\nGameOver");
+      msg.channel.send("You Died!\nhttps://art.pixilart.com/123602c91f84bfa.gif");
       bullets = 6;
     }
 
