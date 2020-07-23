@@ -1,4 +1,4 @@
-//Made with love by Çetin Kaan Taşkıngenç, Mehmetcan Polat and Can Yılmazer
+//<> with ❤️ by Çetin Kaan Taşkıngenç, Mehmetcan Polat
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
