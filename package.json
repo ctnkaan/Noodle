@@ -20,6 +20,7 @@
     "@discordjs/opus": "^0.3.2",
     "discord.js": "^12.2.0",
     "ffmpeg": "0.0.4",
+    "memejs": "^1.2.3",
     "ytdl-core": "^3.1.2"
   }
 }
