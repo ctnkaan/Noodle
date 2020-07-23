@@ -143,9 +143,11 @@ client.on('message', msg => {
     }
   }
 
+  //displays a img from r/dankmemes
+
   if (msg.content === "!!meme") {
     meme('dankmemes', function(err, data) {
-      if (err) return console.error(err);
+      if (err) return msg.channel.send(err);
       msg.channel.send(data.url);
     });
   }
