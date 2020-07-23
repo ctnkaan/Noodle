@@ -47,7 +47,7 @@ client.on('message', msg => {
   //displays all commands
 
   if (msg.content === '!!help') {
-    msg.channel.send(" Commands \n----------------\n\n!!Abdest\n!!Roll\n!!Penis");
+    msg.channel.send(" Commands \n----------------\n\n!!bless -->   RNG Gods blesses you.\n!!roll <number> -->   Random number between 1 and <number>\n!!penis -->   Displays the size of your machine to the whole server.\n!!rps -->   Rock Paper Scissors\n!!rr -->   Russian Roulette \n!!play <link> -->   Plays a music in your voice channel\n!!stop -->   stops the music\n!!kick <username> -->   Kicks the user from server\n!!ban <username> -->   Slams the banhammer to that user.\n\n----------------");
 
   }
 
@@ -130,13 +130,13 @@ client.on('message', msg => {
     var a = Math.floor(Math.random() * 45) + 1;
     msg.reply(a + "cm");
     if (a <= 5) {
-      msg.reply("Görünmüyor")
+      msg.reply("Nanomachines son")
     } else if (a <= 15) {
-      msg.reply("Ufacık");
+      msg.reply("Tiny");
     } else if (a > 15 && a <= 30) {
       msg.reply("Nice dick bro");
     } else {
-      msg.reply("ANASKMM CANAVAAAAR");
+      msg.reply("DAYYUM BOI HE THICC");
     }
   }
 
@@ -225,7 +225,7 @@ client.on('message', msg => {
 
 
 
-  //moderation
+  //------------------moderation----------------------
   //kick
   switch (args[0]) {
     case 'kick':
