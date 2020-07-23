@@ -23,24 +23,23 @@ client.on('message', msg => {
 
 
 
-//russian roulette
-if(msg.content ==='!!rr'){
-msg.channel.send("determine who is 1Player who is 2Player then write !!rrs ")
+  //russian roulette
+  if (msg.content === '!!rr') {
+    msg.channel.send("determine who is 1Player who is 2Player then write !!rrs ")
 
-}
+  }
 
-if(msg.content ==="!!rrs"){
-var a = Math.floor(Math.random() * 2) + 1;
-if(a === 1){
-  msg.channel.send("Second player won the rr")
-  msg.channel.send("First Player           "+"   1P  --------  https://art.pixilart.com/123602c91f84bfa.gif 2P    --------"+"                      Second Player")
-}
-else {
-  msg.channel.send("First player won the rr")
-  msg.channel.send("Second Player                "+ "    2P  --------  https://art.pixilart.com/123602c91f84bfa.gif 1P    -------- " +     "                First Player")
-}
+  if (msg.content === "!!rrs") {
+    var a = Math.floor(Math.random() * 2) + 1;
+    if (a === 1) {
+      msg.channel.send("Second player won the rr")
+      msg.channel.send("First Player           " + "   1P  --------  https://art.pixilart.com/123602c91f84bfa.gif 2P    --------" + "                      Second Player")
+    } else {
+      msg.channel.send("First player won the rr")
+      msg.channel.send("Second Player                " + "    2P  --------  https://art.pixilart.com/123602c91f84bfa.gif 1P    -------- " + "                First Player")
+    }
 
-}
+  }
   //displays a giff img
 
   if (msg.content === '!!abdest') {
@@ -59,51 +58,51 @@ else {
 
 
 
-//rock paper s
-if(msg.content === '!!rps'){
-  r =7;
-  msg.channel.send("Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter please")
-  msg.channel.send("https://www.vampiretools.com/wp-content/uploads/2018/09/psr.jpg")
-  msg.channel.send("!!! Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter please!!!")
-const counter = setInterval(() => {
-  if (r > -1) {
-    msg.channel.send(r)
-r--
-  } else {
-    clearInterval(counter)
+  //rock paper s
+  if (msg.content === '!!rps') {
+    r = 7;
+    msg.channel.send("Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter please")
+    msg.channel.send("https://www.vampiretools.com/wp-content/uploads/2018/09/psr.jpg")
+    msg.channel.send("!!! Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter please!!!")
+    const counter = setInterval(() => {
+      if (r > -1) {
+        msg.channel.send(r)
+        r--
+      } else {
+        clearInterval(counter)
+      }
+    }, 1000)
   }
-}, 1000)
-}
 
 
 
-//Countdown
+  //Countdown
 
   if (!msg.content.startsWith("!!") || msg.author.bot) return;
 
   let counta = msg.content.slice("!!".length).split(' ');
   const commanda = counta.shift().toLowerCase();
 
-  if(commanda === "countdown"){
+  if (commanda === "countdown") {
 
     if (!counta.length) {
       return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
     }
-if(counta<0){
-  return msg.channel.send(`Countdown must be above 0, ${msg.author}!`);
-}
-
-    msg.channel.send("Countdown started "+counta+" secs ")
-  const counter = setInterval(() => {
-    if (counta > 0) {
-      console.log(counta)
-  counta--
-    } else {
-      msg.channel.send("Countdown is over")
-      clearInterval(counter)
+    if (counta < 0) {
+      return msg.channel.send(`Countdown must be above 0, ${msg.author}!`);
     }
-  }, 1000)
-}
+
+    msg.channel.send("Countdown started " + counta + " secs ")
+    const counter = setInterval(() => {
+      if (counta > 0) {
+        console.log(counta)
+        counta--
+      } else {
+        msg.channel.send("Countdown is over")
+        clearInterval(counter)
+      }
+    }, 1000)
+  }
   //gets input and rolls between 1 and user input
 
   if (!msg.content.startsWith("!!") || msg.author.bot) return;
@@ -158,139 +157,132 @@ client.on('message', msg => {
   switch (args[0]) {
     case 'play':
 
-    function play(connection, msg) {
+      function play(connection, msg) {
+        var server = servers[msg.guild.id];
+
+        server.dispatcher = connection.play(ytdl(server.queue[0], {
+          filter: "audioonly"
+        }));
+
+        server.queue.shift();
+
+        server.dispatcher.on("end", function() {
+
+          if (server.queue[0]) {
+            play(connection, msg);
+          } else {
+            connection.disconnect();
+          }
+
+        })
+
+      }
+
+      if (!args[1]) {
+        msg.channel.send("Please provide a link");
+        return;
+      }
+
+      if (!msg.member.voice.channel) {
+        msg.channel.send("You must be in a voice channel.");
+        return;
+      }
+
+      if (!servers[msg.guild.id]) servers[msg.guild.id] = {
+        queue: []
+      }
+
       var server = servers[msg.guild.id];
 
-      server.dispatcher = connection.play(ytdl(server.queue[0], {filter: "audioonly"}));
+      server.queue.push(args[1]);
 
-      server.queue.shift();
-
-      server.dispatcher.on("end", function(){
-
-        if (server.queue[0]){
-          play(connection, msg);
-        } else {
-          connection.disconnect();
-        }
-
+      if (!msg.member.voice.connection) msg.member.voice.channel.join().then(function(connection) {
+        play(connection, msg);
       })
 
-    }
 
-    if (!args[1]) {
-      msg.channel.send("Please provide a link");
-      return;
-    }
-
-    if (!msg.member.voice.channel) {
-      msg.channel.send("You must be in a voice channel.");
-      return;
-    }
-
-    if (!servers[msg.guild.id]) servers[msg.guild.id] = {
-      queue: []
-    }
-
-    var server = servers[msg.guild.id];
-
-    server.queue.push(args[1]);
-
-    if (!msg.member.voice.connection) msg.member.voice.channel.join().then(function(connection) {
-      play(connection, msg);
-    })
+      break;
 
 
-    break;
-
-
-    //skip
+      //skip
     case 'skip':
-    var server = servers[msg.guild.id];
-    if(server.dispatcher) server.dispatcher.end();
-    msg.channel.send("skipping the song");
-    break;
+      var server = servers[msg.guild.id];
+      if (server.dispatcher) server.dispatcher.end();
+      msg.channel.send("skipping the song");
+      break;
 
 
-    //stop
+      //stop
     case 'stop':
-    var server = servers[msg.guild.id];
-    if(msg.guild.voice.connection){
-      for(var i = server.queue.length -1; i >=0; i--){
-        server.queue.splice(i, 1);
+      var server = servers[msg.guild.id];
+      if (msg.guild.voice.connection) {
+        for (var i = server.queue.length - 1; i >= 0; i--) {
+          server.queue.splice(i, 1);
+        }
+        server.dispatcher.end();
+        msg.guild.voice.connection.disconnect();
+        msg.channel.send("Leaving the channel.")
+        console.log('Stopped the queue')
       }
-      server.dispatcher.end();
-      msg.guild.voice.connection.disconnect();
-      msg.channel.send("Leaving the channel.")
-      console.log('Stopped the queue')
-    }
-    if(msg.guild.connection) msg.guild.voice.connection.disconnect();
-    break;
+      if (msg.guild.connection) msg.guild.voice.connection.disconnect();
+      break;
   }
 
 
 
-//moderation
-//kick
+  //moderation
+  //kick
   switch (args[0]) {
-case 'kick':
+    case 'kick':
 
-const user = msg.mentions.users.first();
+      const user = msg.mentions.users.first();
 
-        if(user){
-          const member = msg.guild.member(user);
+      if (user) {
+        const member = msg.guild.member(user);
 
-          if(member){
-            member.kick('kicking').then(() =>{
-              msg.reply('This user kicked from the server');
-            }).catch(err =>{
-              msg.reply('I am not able to kick that member')
-              console.log(err);
-            });
-          } else
-            msg.reply("This member is not kickable")
-          }
+        if (member) {
+          member.kick('kicking').then(() => {
+            msg.reply('This user kicked from the server');
+          }).catch(err => {
+            msg.reply('I am not able to kick that member')
+            console.log(err);
+          });
+        } else
+          msg.reply("This member is not kickable")
+      } else {
+        msg.reply("That user is not member of this server ")
 
-        else {
-          msg.reply("That user is not member of this server ")
-
-        }
-break;
-}
+      }
+      break;
+  }
 
 
-//ban
-switch (args[0]) {
-case 'ban':
-const user = msg.mentions.users.first();
+  //ban
+  switch (args[0]) {
+    case 'ban':
+      const user = msg.mentions.users.first();
 
-        if(user) {
-          const member = msg.guild.member(user);
+      if (user) {
+        const member = msg.guild.member(user);
 
-          if(member){
-            member.ban({ression:'se ya'}).then(() =>{
-              msg.reply('This user banned from the server!');
-            }).catch(err =>{
-              msg.reply('I am not able to ban this member');
-          }); }else{
-            msg.reply("This member is not banable")
-          }
-
-        }else {
-          msg.reply("That user is not member of this server ")
-
-        }
-  break;
+        if (member) {
+          member.ban({
+            ression: 'se ya'
+          }).then(() => {
+            msg.reply('This user banned from the server!');
+          }).catch(err => {
+            msg.reply('I am not able to ban this member');
+          });
+        } else {
+          msg.reply("This member is not banable")
         }
 
+      } else {
+        msg.reply("That user is not member of this server ")
 
-
-
-
-
-
-
-
-
+      }
+      break;
+  }
 
 });
 
