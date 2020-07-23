@@ -7,6 +7,8 @@ var ffmpeg = require('ffmpeg');
 
 var servers = {};
 
+let bullets = 6;
+
 
 
 client.on('ready', () => {
@@ -21,29 +23,22 @@ client.on('ready', () => {
 client.on('message', msg => {
 
 
+  if (msg.content === "!!rr") {
+    let a = Math.floor(Math.random() * bullets) + 1;
 
-
-  //russian roulette
-  if (msg.content === '!!rr') {
-    msg.channel.send("determine who is 1Player who is 2Player then write !!rrs ")
-
-  }
-
-  if (msg.content === "!!rrs") {
-    var a = Math.floor(Math.random() * 2) + 1;
-    if (a === 1) {
-      msg.channel.send("Second player won the rr")
-      msg.channel.send("First Player           " + "   1P  --------  https://art.pixilart.com/123602c91f84bfa.gif 2P    --------" + "                      Second Player")
-    } else {
-      msg.channel.send("First player won the rr")
-      msg.channel.send("Second Player                " + "    2P  --------  https://art.pixilart.com/123602c91f84bfa.gif 1P    -------- " + "                First Player")
+    if (a !== 1) {
+      msg.channel.send("You Survived");
+      bullets--;
+    } else if (a === 1) {
+      msg.channel.send("You Died!\nGameOver");
+      bullets = 6;
     }
 
   }
   //displays a giff img
 
-  if (msg.content === '!!abdest') {
-    msg.channel.send('A B D E S T L E N D İ N');
+  if (msg.content === '!!bless') {
+    msg.channel.send('B L E S');
     msg.channel.send("https://i.pinimg.com/originals/c4/27/7d/c4277d9d382493ff8c55e975d438ed1c.gif");
   }
 
@@ -61,9 +56,9 @@ client.on('message', msg => {
   //rock paper s
   if (msg.content === '!!rps') {
     r = 7;
-    msg.channel.send("Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter please")
+    msg.channel.send("Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter.")
     msg.channel.send("https://www.vampiretools.com/wp-content/uploads/2018/09/psr.jpg")
-    msg.channel.send("!!! Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter please!!!")
+    msg.channel.send("!!! Write R:rock, P:paper or S:scissors after 7 secs when you see 0 press enter.")
     const counter = setInterval(() => {
       if (r > -1) {
         msg.channel.send(r)
