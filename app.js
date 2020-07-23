@@ -1,4 +1,4 @@
-//<> with ❤️ by Çetin Kaan Taşkıngenç, Mehmetcan Polat
+//<> with ❤️ by Çetin Kaan Taşkıngenç & Mehmetcan Polat
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -148,6 +148,7 @@ client.on('message', msg => {
   if (msg.content === "!!meme") {
     meme('dankmemes', function(err, data) {
       if (err) return msg.channel.send(err);
+      msg.channel.send(data.title);
       msg.channel.send(data.url);
     });
   }
