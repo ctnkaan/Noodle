@@ -1,6 +1,6 @@
 Disord bot <> with ❤️ by Çetin Kaan Taşkıngenç and Mehmetcan Polat
 
-![](images/noodle.png)
+<img src="images/noodle.png" width="400" height="400">
 
 ----------------------------COMMANDS----------------------------
 
