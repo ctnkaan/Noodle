@@ -1,5 +1,6 @@
 //<> with ❤️ by Çetin Kaan Taşkıngenç & Mehmetcan Polat
 
+require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const ytdl = require('ytdl-core');
@@ -41,7 +42,7 @@ client.on('message', msg => {
   //displays a giff img
 
   if (msg.content === '!!bless') {
-    msg.channel.send('B L E S');
+    msg.channel.send('B L E S S E D');
     msg.channel.send("https://i.pinimg.com/originals/c4/27/7d/c4277d9d382493ff8c55e975d438ed1c.gif");
   }
 
@@ -252,8 +253,6 @@ client.on("message", async message => {
   } else if (message.content.startsWith(`${'!!'}stop`)) {
     stop(message, serverQueue);
     return;
-  } else {
-    message.channel.send("You need to enter a valid command!");
   }
 });
 
@@ -348,4 +347,4 @@ function play(guild, song) {
 
 
 
-client.login('NzMxNTE0MzM0NjIxOTkxMDI1.XxS_-A.3nCYYcNiJ0xkYd2CMSztN3SnWOc');
+client.login(process.env.DISCORD_KEY);
