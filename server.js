@@ -51,7 +51,7 @@ client.on('message', msg => {
   //displays all commands
 
   if (msg.content === '!!help') {
-    msg.channel.send("----------------------------COMMANDS----------------------------\n\n!!bless -->   RNG Gods blesses you.\n!!roll <number> -->   Random number between 1 and <number>\n!!penis -->   Displays the size of your machine to the whole server.\n!!rps -->   Rock Paper Scissors\n!!rr -->   Russian Roulette \n!!play <link> -->   Plays a music in your voice channel\n!!stop -->   stops the music\n!!countdown <number> -->   Sets a countdown from <number>\n!!kick <username> -->   Kicks the user from server\n!!ban <username> -->   Slams the banhammer to that user.\n!!meme -->   Displays a dank meme (takes like 3-5 secs)\n\n-----------------------------------------------------------------------");
+    msg.channel.send("----------------------------COMMANDS----------------------------\n\n!!meme -->   Displays a dank meme (takes like 3-5 secs)\n!!bless -->   RNG Gods blesses you.\n!!roll <number> -->   Random number between 1 and <number>\n!!penis -->   Displays the size of your machine to the whole server.\n!!rps -->   Rock Paper Scissors\n!!rr -->   Russian Roulette \n!!play <link> -->   Plays a music in your voice channel\n!!stop -->   stops the music\n!!countdown <number> -->   Sets a countdown from <number>\n!!kick <username> -->   Kicks the user from server\n!!ban <username> -->   Slams the banhammer to that user.\n\n-----------------------------------------------------------------------");
 
   }
 
