@@ -8,7 +8,7 @@ Disord bot <> with ❤️ by Çetin Kaan Taşkıngenç and Mehmetcan Polat
 
 !!bless -->   RNG Gods blesses you.
 
-!!roll <number> -->   Random number between 1 and <number>
+!!roll #number -->   Random number between 1 and #number
 
 !!penis -->   Displays the size of your machine to the whole server.
 
@@ -16,14 +16,14 @@ Disord bot <> with ❤️ by Çetin Kaan Taşkıngenç and Mehmetcan Polat
 
 !!rr -->   Russian Roulette
 
-!!play <link> -->   Plays a music in your voice channel
+!!play #link -->   Plays a music in your voice channel
 
 !!stop -->   stops the music
 
-!!countdown <number> -->   Sets a countdown from <number>
+!!countdown #number -->   Sets a countdown from #number
 
-!!kick <username> -->   Kicks the user from server
+!!kick #username -->   Kicks the user from server
 
-!!ban <username> -->   Slams the banhammer to that user.
+!!ban #username -->   Slams the banhammer to that user.
 
 -----------------------------------------------------------------------
