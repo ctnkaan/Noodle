@@ -1,4 +1,4 @@
-Disord bot <> with ❤️ by Çetin Kaan Taşkıngenç and Mehmetcan Polat
+Discord bot <> with ❤️ by Çetin Kaan Taşkıngenç and Mehmetcan Polat
 
 <img src="images/noodle.png" width="400" height="400">
 
