@@ -4,7 +4,9 @@ Discord bot <> with ❤️ by Çetin Kaan Taşkıngenç and Mehmetcan Polat
 
 ----------------------------COMMANDS----------------------------
 
-!!meme -->   Displays a dank meme (takes like 3-5 secs)
+!!meme -->   Displays a dank meme
+
+!!reddit #subreddit name -->   Displays a post from that subreddit
 
 !!bless -->   RNG Gods blesses you.
 
