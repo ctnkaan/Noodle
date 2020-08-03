@@ -10,7 +10,7 @@ Discord bot <> with ❤️ by Çetin Kaan Taşkıngenç and Mehmetcan Polat
 
 !!roll #number -->   Random number between 1 and #number
 
-!!penis -->   Displays the size of your machine to the whole server.
+!!skip -->   skips the music
 
 !!rps -->   Rock Paper Scissors
 

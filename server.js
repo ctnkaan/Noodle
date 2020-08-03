@@ -18,7 +18,7 @@ let bullets = 6;
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
-  client.user.setActivity("!!help for commands");
+  client.user.setActivity("!!help");
 });
 
 
@@ -51,13 +51,13 @@ client.on('message', msg => {
   //displays all commands
 
   if (msg.content === '!!help') {
-    msg.channel.send("----------------------------COMMANDS----------------------------\n\n!!meme -->   Displays a dank meme (takes like 3-5 secs)\n!!bless -->   RNG Gods blesses you.\n!!roll <number> -->   Random number between 1 and <number>\n!!penis -->   Displays the size of your machine to the whole server.\n!!rps -->   Rock Paper Scissors\n!!rr -->   Russian Roulette \n!!play <link> -->   Plays a music in your voice channel\n!!stop -->   stops the music\n!!countdown <number> -->   Sets a countdown from <number>\n!!kick <username> -->   Kicks the user from server\n!!ban <username> -->   Slams the banhammer to that user.\n\n-----------------------------------------------------------------------");
+    msg.channel.send("----------------------------COMMANDS----------------------------\n\n!!meme -->   Displays a dank meme (takes 3-5 secs)\n!!reddit <name> -->   Displays a img and comment from the subreddit <name> (takes 3-5 secs)\n!!bless -->   RNG Gods blesses you.\n!!roll <number> -->   Random number between 1 and <number>\n!!rps -->   Rock Paper Scissors\n!!rr -->   Russian Roulette \n!!play <link> -->   Plays a music in your voice channel\n!!skip -->   skips the music\n!!stop -->   stops the music\n!!countdown <number> -->   Sets a countdown from <number>\n!!kick <username> -->   Kicks the user from server\n!!ban <username> -->   Slams the banhammer to that user.\n\n-----------------------------------------------------------------------");
 
   }
 
 
 
-  //rock paper s
+  //rock paper scissors
   if (msg.content === '!!rps') {
     r = 7;
     msg.channel.send("Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter.")
@@ -127,21 +127,20 @@ client.on('message', msg => {
   }
 
 
+  //displays a img and title from a reddit community
 
-  //gives the user a number indicating their penis size between 0-45 and then comments on it
-
-  if (msg.content === "!!penis") {
-    var a = Math.floor(Math.random() * 45) + 1;
-    msg.reply(a + "cm");
-    if (a <= 5) {
-      msg.reply("Nanomachines son")
-    } else if (a <= 15) {
-      msg.reply("Tiny");
-    } else if (a > 15 && a <= 30) {
-      msg.reply("Nice dick bro");
+  if (command === 'reddit') {
+    if (!args.length) {
+      return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
     } else {
-      msg.reply("DAYYUM BOI HE THICC");
+      meme(''+args, function(err, data) {
+        if (err) return msg.channel.send(err);
+        msg.channel.send(data.title);
+        msg.channel.send(data.url);
+      });
     }
+
+
   }
 
   //displays a img from r/dankmemes
@@ -222,7 +221,7 @@ client.on('message', msg => {
 });
 
 
-
+// playing music
 
 const queue = new Map();
 
