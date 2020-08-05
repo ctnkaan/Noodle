@@ -51,7 +51,7 @@ client.on('message', msg => {
   //displays all commands
 
   if (msg.content === '!!help') {
-    msg.channel.send("----------------------------COMMANDS----------------------------\n\n!!meme -->   Displays a dank meme\n!!reddit <name> -->   Displays a img and comment from the subreddit <subreddit name> \n!!bless -->   RNG Gods blesses you.\n!!roll <number> -->   Random number between 1 and <number>\n!!rps -->   Rock Paper Scissors\n!!rr -->   Russian Roulette \n!!play <link> -->   Plays a music in your voice channel\n!!skip -->   skips the music\n!!stop -->   stops the music\n!!countdown <number> -->   Sets a countdown from <number>\n!!kick <username> -->   Kicks the user from server\n!!ban <username> -->   Slams the banhammer to that user.\n\n-----------------------------------------------------------------------");
+    msg.channel.send("Website: https://maviyboct.github.io/noodle-site/\n\n----------------------------COMMANDS----------------------------\n\n!!meme -->   Displays a dank meme\n!!reddit <name> -->   Displays a img and comment from the subreddit <subreddit name> \n!!bless -->   RNG Gods blesses you.\n!!roll <number> -->   Random number between 1 and <number>\n!!rps -->   Rock Paper Scissors\n!!rr -->   Russian Roulette \n!!play <link> -->   Plays a music in your voice channel\n!!skip -->   skips the music\n!!stop -->   stops the music\n!!countdown <number> -->   Sets a countdown from <number>\n!!kick <username> -->   Kicks the user from server\n!!ban <username> -->   Slams the banhammer to that user.\n\n-----------------------------------------------------------------------");
 
   }
 
