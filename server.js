@@ -272,8 +272,9 @@ async function execute(message, serverQueue) {
 
   const songInfo = await ytdl.getInfo(args[1]);
   const song = {
-    title: songInfo.title,
-    url: songInfo.video_url
+    title: songInfo.videoDetails.title,
+    url: songInfo.videoDetails.video_url,
+    quality: 'highestaudio'
   };
 
   if (!serverQueue) {
@@ -333,7 +334,7 @@ function play(guild, song) {
   }
 
   const dispatcher = serverQueue.connection
-    .play(ytdl(song.url))
+    .play(ytdl(song.url, song.quality))
     .on("finish", () => {
       serverQueue.songs.shift();
       play(guild, serverQueue.songs[0]);
