@@ -5,9 +5,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const ytdl = require('ytdl-core');
 var ffmpeg = require('ffmpeg');
-const {
-  meme
-} = require('memejs');
+const {meme} = require('memejs');
 
 var servers = {};
 
