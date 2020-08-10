@@ -39,6 +39,20 @@ client.on('message', msg => {
     }
 
   }
+
+
+  //showing how many servers and users are using the bot bot
+  if (msg.content === "!!stats") {
+    var scount =  client.guilds.cache.size;
+    var usercount = client.users.cache.size;
+
+    msg.reply(`${client.user.username} is on ${scount} server with ${usercount} users`);
+  }
+
+  msg.reply
+
+
+
   //displays a giff img
 
   if (msg.content === '!!bless') {
@@ -51,7 +65,7 @@ client.on('message', msg => {
   //displays all commands
 
   if (msg.content === '!!help') {
-    msg.channel.send("Website: https://maviyboct.github.io/noodle-site/\n\n----------------------------COMMANDS----------------------------\n\n!!meme -->   Displays a dank meme\n!!reddit <name> -->   Displays a img and comment from the subreddit <subreddit name> \n!!bless -->   RNG Gods blesses you.\n!!roll <number> -->   Random number between 1 and <number>\n!!rps -->   Rock Paper Scissors\n!!rr -->   Russian Roulette \n!!play <link> -->   Plays a music in your voice channel\n!!skip -->   skips the music\n!!stop -->   stops the music\n!!countdown <number> -->   Sets a countdown from <number>\n!!kick <username> -->   Kicks the user from server\n!!ban <username> -->   Slams the banhammer to that user.\n\n-----------------------------------------------------------------------");
+    msg.channel.send("Website: https://maviyboct.github.io/noodle-site/\n\n----------------------------COMMANDS----------------------------\n\n!!meme -->   Displays a dank meme\n!!reddit <name> -->   Displays a img and comment from the subreddit <subreddit name> \n!!stats --> Displays the stats of the bot\n!!bless -->   RNG Gods blesses you.\n!!roll <number> -->   Random number between 1 and <number>\n!!rps -->   Rock Paper Scissors\n!!rr -->   Russian Roulette \n!!play <link> -->   Plays a music in your voice channel\n!!skip -->   skips the music\n!!stop -->   stops the music\n!!countdown <number> -->   Sets a countdown from <number>\n!!kick <username> -->   Kicks the user from server\n!!ban <username> -->   Slams the banhammer to that user.\n\n-----------------------------------------------------------------------");
 
   }
 
