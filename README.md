@@ -1,5 +1,7 @@
 Discord bot <> with ❤️ by Çetin Kaan Taşkıngenç and Mehmetcan Polat
 
+Thanks to Can Yılmazer for this awesome logo
+
 <img src="images/noodle.png" width="400" height="400">
 
 ----------------------------COMMANDS----------------------------
