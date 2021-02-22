@@ -8,20 +8,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MaViYboct/Discord-Bot.git"
+    "url": "git+https://github.com/ctnkaan/Discord-Bot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MaViYboct/Discord-Bot/issues"
+    "url": "https://github.com/ctnkaan/Discord-Bot/issues"
   },
-  "homepage": "https://github.com/MaViYboct/Discord-Bot#readme",
+  "homepage": "https://github.com/ctnkaan/Discord-Bot#readme",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "ffmpeg": "0.0.4",
     "memejs": "^1.2.3",
-    "ytdl-core": "^3.1.2"
+    "ytdl-core": "^4.1.6"
   }
 }
