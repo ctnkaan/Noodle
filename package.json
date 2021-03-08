@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ctnkaan/Discord-Bot.git"
+    "url": "git+https://github.com/ctnkaan/Noodle.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ctnkaan/Discord-Bot/issues"
+    "url": "https://github.com/ctnkaan/Noodle/issues"
   },
-  "homepage": "https://github.com/ctnkaan/Discord-Bot#readme",
+  "homepage": "https://github.com/ctnkaan/Noodle#readme",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "discord.js": "^12.2.0",
