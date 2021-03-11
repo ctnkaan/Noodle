@@ -1,5 +1,3 @@
-
-
   module.exports = {
     name: 'bless',
     description: 'display a gif img',
