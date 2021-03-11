@@ -17,11 +17,12 @@
   },
   "homepage": "https://github.com/ctnkaan/Noodle#readme",
   "dependencies": {
-    "@discordjs/opus": "^0.3.2",
-    "discord.js": "^12.2.0",
+    "@discordjs/opus": "^0.3.3",
+    "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "ffmpeg": "0.0.4",
+    "ffmpeg-static": "^4.2.7",
     "memejs": "^1.2.3",
-    "ytdl-core": "^4.1.6"
+    "ytdl-core": "^4.5.0"
   }
 }
