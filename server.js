@@ -5,11 +5,16 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const ytdl = require('ytdl-core');
 var ffmpeg = require('ffmpeg');
-const {meme} = require('memejs');
 
-var servers = {};
-
-let bullets = 6;
+const Rr = require("./commands/rr");
+const Stats = require("./commands/stats");
+const Bless = require("./commands/bless");
+const Help = require("./commands/help");
+const Rps = require("./commands/rps");
+const Countdown = require("./commands/countdown");
+const Roll = require('./commands/roll');
+const Reddit = require('./commands/reddit');
+const Meme = require('./commands/meme');
 
 
 
@@ -24,145 +29,75 @@ client.on('ready', () => {
 
 client.on('message', msg => {
 
-  // russian rulet game
+  //Russian Rulatte
+  let bullets = 6;
+
   if (msg.content === "!!rr") {
-    let a = Math.floor(Math.random() * bullets) + 1;
-
-    if (a !== 1) {
-      msg.channel.send("You Survived");
-      bullets--;
-    } else if (a === 1) {
-      msg.channel.send("You Died!\nhttps://art.pixilart.com/123602c91f84bfa.gif");
-      bullets = 6;
-    }
-
-  }
-
-
-  //showing how many servers and users are using the bot bot
-  if (msg.content === "!!stats") {
-    var scount =  client.guilds.cache.size;
-    var usercount = client.users.cache.size;
-
-    msg.reply(`${client.user.username} is on ${scount} server with ${usercount} users`);
-  }
-
-  msg.reply
-
-
-
-  //displays a giff img
-
-  if (msg.content === '!!bless') {
-    msg.channel.send('B L E S S E D');
-    msg.channel.send("https://i.pinimg.com/originals/c4/27/7d/c4277d9d382493ff8c55e975d438ed1c.gif");
+    bullets = Rr.execute(msg, bullets);
   }
 
 
 
-  //displays all commands
-
-  if (msg.content === '!!help') {
-    msg.channel.send("Website: https://ctnkaan.github.io/noodle-site/\n\n----------------------------COMMANDS----------------------------\n\n!!meme -->   Displays a dank meme\n!!reddit <name> -->   Displays a img and comment from the subreddit <subreddit name> \n!!stats --> Displays the stats of the bot\n!!bless -->   RNG Gods blesses you.\n!!roll <number> -->   Random number between 1 and <number>\n!!rps -->   Rock Paper Scissors\n!!rr -->   Russian Roulette \n!!play <link> -->   Plays a music in your voice channel\n!!skip -->   skips the music\n!!stop -->   stops the music\n!!countdown <number> -->   Sets a countdown from <number>\n!!kick <username> -->   Kicks the user from server\n!!ban <username> -->   Slams the banhammer to that user.\n\n-----------------------------------------------------------------------");
-
+  //Stats
+  else if (msg.content === "!!stats") {
+    Stats.execute(msg, client);
   }
 
 
 
-  //rock paper scissors
-  if (msg.content === '!!rps') {
-    r = 7;
-    msg.channel.send("Write R:rock or P:paper or S:scissors after 7 secs when you see 0 press enter.")
-    msg.channel.send("https://www.vampiretools.com/wp-content/uploads/2018/09/psr.jpg")
-    msg.channel.send("!!! Write R:rock, P:paper or S:scissors after 7 secs when you see 0 press enter.")
-    const counter = setInterval(() => {
-      if (r > -1) {
-        msg.channel.send(r)
-        r--
-      } else {
-        clearInterval(counter)
-      }
-    }, 1000)
+  //Bless
+  else if (msg.content === '!!bless') {
+    Bless.execute(msg);
+  }
+
+
+
+  //Displays all commands
+  else if (msg.content === '!!help') {
+    Help.execute(msg);
+  }
+
+
+
+  //Rock paper scissors
+  else if (msg.content === '!!rps') {
+    Rps.execute(msg);
   }
 
 
 
   //Countdown
-
   if (!msg.content.startsWith("!!") || msg.author.bot) return;
-
   let counta = msg.content.slice("!!".length).split(' ');
   const commanda = counta.shift().toLowerCase();
 
   if (commanda === "countdown") {
-
-    if (!counta.length) {
-      return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
-    }
-    if (counta < 0) {
-      return msg.channel.send(`Countdown must be above 0, ${msg.author}!`);
-    }
-
-    msg.channel.send("Countdown started " + counta + " secs ")
-    const counter = setInterval(() => {
-      if (counta > 0) {
-        console.log(counta)
-        counta--
-      } else {
-        msg.channel.send("Countdown is over")
-        clearInterval(counter)
-      }
-    }, 1000)
+    Countdown.execute(msg, counta);
   }
-  //gets input and rolls between 1 and user input
 
+  
+
+  //Roll
   if (!msg.content.startsWith("!!") || msg.author.bot) return;
-
   const args = msg.content.slice("!!".length).split(' ');
   const command = args.shift().toLowerCase();
 
   if (command === 'roll') {
-    if (!args.length) {
-      return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
-    }
-
-    var a = Math.floor(Math.random() * args) + 1;
-
-    if (a <= 0) {
-      return msg.channel.send(`Please enter a number above 0 , ${msg.author}!`);
-    }
-    if ((a - 1) !== (a - 1)) { //Checks if input is a number or not
-      return msg.channel.send(`Please enter a number , ${msg.author}!`);
-    }
-
-    msg.channel.send(`${msg.author}: ` + a);
+    Roll.execute(msg, args);
   }
 
 
-  //displays a img and title from a reddit community
 
+  //Reddit
   if (command === 'reddit') {
-    if (!args.length) {
-      return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
-    } else {
-      meme(''+args, function(err, data) {
-        if (err) return msg.channel.send(err);
-        msg.channel.send(data.title);
-        msg.channel.send(data.url);
-      });
-    }
-
-
+    Reddit.execute(msg, args);
   }
 
-  //displays a img from r/dankmemes
 
+
+  //Meme
   if (msg.content === "!!meme") {
-    meme('dankmemes', function(err, data) {
-      if (err) return msg.channel.send(err);
-      msg.channel.send(data.title);
-      msg.channel.send(data.url);
-    });
+    Meme.execute(msg);
   }
 
 });
