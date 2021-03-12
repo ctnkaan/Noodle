@@ -15,6 +15,7 @@ const Countdown = require("./commands/countdown");
 const Roll = require('./commands/roll');
 const Reddit = require('./commands/reddit');
 const Meme = require('./commands/meme');
+const Moderation = require('./commands/moderation');
 
 
 
@@ -25,144 +26,83 @@ client.on('ready', () => {
 });
 
 
+let bullets = 6; // Required for Russian Rulatte
 
 
 client.on('message', msg => {
 
-  //Russian Rulatte
-  let bullets = 6;
+  if (!msg.content.startsWith("!!") || msg.author.bot) return;
+  const args = msg.content.slice("!!".length).split(' ');
+  const command = args.shift().toLowerCase();
 
-  if (msg.content === "!!rr") {
+
+
+  //Russian Rulatte
+  if (command === "rr") {
     bullets = Rr.execute(msg, bullets);
   }
 
 
 
   //Stats
-  else if (msg.content === "!!stats") {
+  else if (command === "stats") {
     Stats.execute(msg, client);
   }
 
 
 
   //Bless
-  else if (msg.content === '!!bless') {
+  else if (command === 'bless') {
     Bless.execute(msg);
   }
 
 
 
   //Displays all commands
-  else if (msg.content === '!!help') {
+  else if (command === 'help') {
     Help.execute(msg);
   }
 
 
 
   //Rock paper scissors
-  else if (msg.content === '!!rps') {
+  else if (command === 'rps') {
     Rps.execute(msg);
   }
 
 
 
   //Countdown
-  if (!msg.content.startsWith("!!") || msg.author.bot) return;
-  let counta = msg.content.slice("!!".length).split(' ');
-  const commanda = counta.shift().toLowerCase();
-
-  if (commanda === "countdown") {
-    Countdown.execute(msg, counta);
+  else if (command === "countdown") {
+    Countdown.execute(msg, command);
   }
 
   
 
   //Roll
-  if (!msg.content.startsWith("!!") || msg.author.bot) return;
-  const args = msg.content.slice("!!".length).split(' ');
-  const command = args.shift().toLowerCase();
-
-  if (command === 'roll') {
+  else if (command === 'roll') {
     Roll.execute(msg, args);
   }
 
 
 
   //Reddit
-  if (command === 'reddit') {
+  else if (command === 'reddit') {
     Reddit.execute(msg, args);
   }
 
 
 
   //Meme
-  if (msg.content === "!!meme") {
+  else if (command === "meme") {
     Meme.execute(msg);
   }
 
-});
 
 
-
-client.on('message', msg => {
-
-
-  let args = msg.content.substring("!!".length).split(" ");
-
-
-
-  //------------------moderation----------------------
-  //kick
-  switch (args[0]) {
-    case 'kick':
-
-      const user = msg.mentions.users.first();
-
-      if (user) {
-        const member = msg.guild.member(user);
-
-        if (member) {
-          member.kick('kicking').then(() => {
-            msg.reply('This user kicked from the server');
-          }).catch(err => {
-            msg.reply('I am not able to kick that member')
-            console.log(err);
-          });
-        } else
-          msg.reply("This member is not kickable")
-      } else {
-        msg.reply("That user is not member of this server ")
-
-      }
-      break;
-  }
-
-
-  //ban
-  switch (args[0]) {
-    case 'ban':
-      const user = msg.mentions.users.first();
-
-      if (user) {
-        const member = msg.guild.member(user);
-
-        if (member) {
-          member.ban({
-            ression: 'se ya'
-          }).then(() => {
-            msg.reply('This user banned from the server!');
-          }).catch(err => {
-            msg.reply('I am not able to ban this member');
-          });
-        } else {
-          msg.reply("This member is not banable")
-        }
-
-      } else {
-        msg.reply("That user is not member of this server ")
-
-      }
-      break;
+  //Moderation
+  else if (command === "kick" || command === "ban") {
+    Moderation.execute(msg, command);
   }
 
 });
@@ -171,18 +111,6 @@ client.on('message', msg => {
 // playing music
 
 const queue = new Map();
-
-client.once("ready", () => {
-  console.log("Ready!");
-});
-
-client.once("reconnecting", () => {
-  console.log("Reconnecting!");
-});
-
-client.once("disconnect", () => {
-  console.log("Disconnect!");
-});
 
 client.on("message", async message => {
   if (message.author.bot) return;
