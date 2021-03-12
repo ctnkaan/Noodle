@@ -18,15 +18,13 @@ const Meme = require('./commands/meme');
 const Moderation = require('./commands/moderation');
 
 
+let bullets = 6; // Required for Russian Rulatte
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   client.user.setActivity("!!help");
 });
-
-
-let bullets = 6; // Required for Russian Rulatte
 
 
 client.on('message', msg => {
@@ -58,7 +56,7 @@ client.on('message', msg => {
 
 
 
-  //Displays all commands
+  //Help
   else if (command === 'help') {
     Help.execute(msg);
   }
@@ -74,7 +72,7 @@ client.on('message', msg => {
 
   //Countdown
   else if (command === "countdown") {
-    Countdown.execute(msg, command);
+    Countdown.execute(msg, args);
   }
 
   
@@ -107,19 +105,15 @@ client.on('message', msg => {
 
 });
 
-
-// playing music
-
+//-------------------------------------------------------------------------
+//Playing music
 const queue = new Map();
 
 client.on("message", async message => {
-  if (message.author.bot) return;
-  if (!message.content.startsWith('!!')) return;
-
   const serverQueue = queue.get(message.guild.id);
 
   if (message.content.startsWith(`${'!!'}play`)) {
-    execute(message, serverQueue);
+    playFunc(message, serverQueue);
     return;
   } else if (message.content.startsWith(`${'!!'}skip`)) {
     skip(message, serverQueue);
@@ -130,20 +124,18 @@ client.on("message", async message => {
   }
 });
 
-async function execute(message, serverQueue) {
+async function playFunc(message, serverQueue) {
   const args = message.content.split(" ");
 
   const voiceChannel = message.member.voice.channel;
   if (!voiceChannel)
-    return message.channel.send(
-      "You need to be in a voice channel to play music!"
-    );
+    return message.channel.send("You need to be in a voice channel to play music!");
+
   const permissions = voiceChannel.permissionsFor(message.client.user);
-  if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
-    return message.channel.send(
-      "I need the permissions to join and speak in your voice channel!"
-    );
-  }
+
+  if (!permissions.has("CONNECT") || !permissions.has("SPEAK"))
+    return message.channel.send("I need the permissions to join and speak in your voice channel!");
+  
 
   const songInfo = await ytdl.getInfo(args[1]);
   const song = {
@@ -193,9 +185,7 @@ function skip(message, serverQueue) {
 
 function stop(message, serverQueue) {
   if (!message.member.voice.channel)
-    return message.channel.send(
-      "You have to be in a voice channel to stop the music!"
-    );
+    return message.channel.send("You have to be in a voice channel to stop the music!");
   serverQueue.songs = [];
   serverQueue.connection.dispatcher.end();
 }
@@ -218,7 +208,7 @@ function play(guild, song) {
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
   serverQueue.textChannel.send(`Started playing: **${song.title}**`);
 }
-
+//----------------------------------------------------------------------------
 
 
 
