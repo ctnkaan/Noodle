@@ -6,7 +6,7 @@ module.exports = {
             return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
           }
       
-          var a = Math.floor(Math.random() * args) + 1;
+          let a = Math.floor(Math.random() * args) + 1;
       
           if (a <= 0) {
             return msg.channel.send(`Please enter a number above 0 , ${msg.author}!`);

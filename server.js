@@ -14,6 +14,7 @@ const Roll = require('./commands/roll');
 const Reddit = require('./commands/reddit');
 const Meme = require('./commands/meme');
 const Moderation = require('./commands/moderation');
+const Case = require('./commands/case');
 
 
 let bullets = 6; // Required for Russian Rulatte
@@ -101,6 +102,12 @@ client.on('message', msg => {
     Moderation.execute(msg, command);
   }
 
+
+
+  //CSGO Case
+  else if (command === "case") {
+    Case.execute(msg);
+  }
 });
 
 
