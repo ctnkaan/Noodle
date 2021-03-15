@@ -16,7 +16,7 @@ module.exports = {
         } else if (luck <= 80) {
             let item = Math.floor(Math.random() * 10) + 1;
             msg.channel.send('You got a purple item!');
-            msg.channel.send('https://raw.githubusercontent.com/ctnkaan/Noodle/dev/images/items/pruple/'+ item +'.png');
+            msg.channel.send('https://raw.githubusercontent.com/ctnkaan/Noodle/dev/images/items/purple/'+ item +'.png');
 
         } else if (luck <= 90) {
             let item = Math.floor(Math.random() * 5) + 1;
