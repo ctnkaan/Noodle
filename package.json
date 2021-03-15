@@ -1,8 +1,8 @@
 {
-  "name": "discord-bot",
+  "name": "noodle",
   "version": "1.0.0",
   "description": "Disord bot developed by kaan, mehmetcan and can.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,19 +10,19 @@
     "type": "git",
     "url": "git+https://github.com/ctnkaan/Noodle.git"
   },
-  "author": "",
+  "author": "Çetin Kaan Taşkıngenç",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ctnkaan/Noodle/issues"
   },
   "homepage": "https://github.com/ctnkaan/Noodle#readme",
   "dependencies": {
-    "@discordjs/opus": "^0.3.3",
+    "@discordjs/opus": "^0.4.0",
+    "dbd.js": "^2.2.0",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
-    "memejs": "^1.2.3",
-    "ytdl-core": "^4.5.0"
+    "memejs": "^1.2.3"
   }
 }
