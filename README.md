@@ -14,15 +14,13 @@ Thanks to Can Yılmazer for this awesome logo
 
 !!roll #number -->   Random number between 1 and #number
 
-!!skip -->   skips the music
+!!case --> Open a csgo case
+
+!!bj --> Start blackjack game
 
 !!rps -->   Rock Paper Scissors
 
 !!rr -->   Russian Roulette
-
-!!play #link -->   Plays a music in your voice channel
-
-!!stop -->   stops the music
 
 !!countdown #number -->   Sets a countdown from #number
 
