@@ -15,9 +15,10 @@ const Reddit = require('./commands/reddit');
 const Meme = require('./commands/meme');
 const Moderation = require('./commands/moderation');
 const Case = require('./commands/case');
+const WeatherFile = require('./commands/weather');
 
 
-let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false, bullets = 6;
+let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false, bullets = 6; //blackjack
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -87,6 +88,10 @@ client.on('message', msg => {
   //CSGO Case
   else if (command === "case") {
     Case.execute(msg);
+  }
+
+  else if (command === "weather") {
+    WeatherFile.execute(msg, args);
   }
 
   
