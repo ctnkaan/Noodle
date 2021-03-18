@@ -23,6 +23,7 @@
     "dotenv": "^8.2.0",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
-    "memejs": "^1.2.3"
+    "memejs": "^1.2.3",
+    "openweather-apis": "^4.4.1"
   }
 }
