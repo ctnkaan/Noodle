@@ -15,7 +15,13 @@ module.exports = {
 
         weather.getAllWeather(function(err, JSONObj){
             console.log(JSONObj);
-            msg.channel.send("The weather in izmir is "+JSONObj.main.temp+" with "+JSONObj.weather[0].description);
+            
+            if (err) {
+                msg.channel.send("Unknown city");
+            } else {
+                msg.channel.send("The weather in "+args+" is "+JSONObj.main.temp+" with "+JSONObj.weather[0].description);
+            }
+            
         });
 
     },

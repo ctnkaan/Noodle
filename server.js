@@ -18,7 +18,8 @@ const Case = require('./commands/case');
 const WeatherFile = require('./commands/weather');
 
 
-let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false, bullets = 6; //blackjack
+let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false; //blackjack
+let bullets = 6; //russian 
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -90,6 +91,7 @@ client.on('message', msg => {
     Case.execute(msg);
   }
 
+  //Weather
   else if (command === "weather") {
     WeatherFile.execute(msg, args);
   }
