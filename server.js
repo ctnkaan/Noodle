@@ -17,6 +17,8 @@ const Moderation = require('./commands/moderation');
 const Case = require('./commands/case');
 const WeatherFile = require('./commands/weather');
 
+const Shuffle = require('./functions/shuffle');
+
 
 let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false; //blackjack
 let bullets = 6; //russian 
@@ -97,7 +99,7 @@ client.on('message', msg => {
   }
 
   
-//////////////////////////////////Blackjack////////////////////////////////////////
+//////////////////////////////////Blackjack//////////////////////////////////////
 
   else if (command === "bj") {
 
@@ -112,7 +114,7 @@ client.on('message', msg => {
         }
     }
 
-    shuffle(stack)
+    Shuffle.execute(stack)
 
     console.log(stack);
 
@@ -151,7 +153,7 @@ client.on('message', msg => {
     }
   }
 
-  else if (command == "s" && gameStarted == true) {
+  else if (command === "s" && gameStarted == true) {
     msg.channel.send("CPU has "+ cpuDeck[0] + " and "+ cpuDeck[1]);
 
     if (cpuSum > 21) {
@@ -196,25 +198,6 @@ client.on('message', msg => {
 /////////////////////////////////Blackjack//////////////////////////////////////
   
 });
-
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
 
   
 
