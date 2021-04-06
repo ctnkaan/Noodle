@@ -1,9 +1,12 @@
 //<> with ❤️ by Çetin Kaan Taşkıngenç & Mehmetcan Polat
 
+//Third Party
 require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
+var bitcoinex = require('bitcoinex');
 
+//Imports
 const Rr = require("./commands/rr");
 const Stats = require("./commands/stats");
 const Bless = require("./commands/bless");
@@ -17,11 +20,14 @@ const Moderation = require('./commands/moderation');
 const Case = require('./commands/case');
 const WeatherFile = require('./commands/weather');
 
+//Functions
 const Shuffle = require('./functions/shuffle');
 
 
+
 let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false; //blackjack
-let bullets = 6; //russian 
+
+let bullets = 6; //RR 
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -96,6 +102,15 @@ client.on('message', msg => {
   //Weather
   else if (command === "weather") {
     WeatherFile.execute(msg, args);
+  }
+
+  else if (command === "btc") {
+    bitcoinex.getPriceWith('bitstamp', 'usd', function(err, priceObject) {
+      if (err)
+          msg.channel.send("There was a Error");
+      else 
+          msg.channel.send("Bitcoin is currently "+priceObject.last+" $");
+  });
   }
 
   
