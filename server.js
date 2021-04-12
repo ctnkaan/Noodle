@@ -1,9 +1,11 @@
 //<> with ❤️ by Çetin Kaan Taşkıngenç & Mehmetcan Polat
 
+//Third Party
 require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+//Imports
 const Rr = require("./commands/rr");
 const Stats = require("./commands/stats");
 const Bless = require("./commands/bless");
@@ -16,12 +18,16 @@ const Meme = require('./commands/meme');
 const Moderation = require('./commands/moderation');
 const Case = require('./commands/case');
 const WeatherFile = require('./commands/weather');
+const Btc = require('./commands/btc');
 
+//Functions
 const Shuffle = require('./functions/shuffle');
 
 
+
 let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false; //blackjack
-let bullets = 6; //russian 
+
+let bullets = 6; //RR 
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -98,7 +104,11 @@ client.on('message', msg => {
     WeatherFile.execute(msg, args);
   }
 
-  
+  else if (command === "btc" || command === "bitcoin") {
+    Btc.execute(msg);
+  }
+
+  //TODO: CARRY THIS TO COMMANDS
 //////////////////////////////////Blackjack//////////////////////////////////////
 
   else if (command === "bj") {
