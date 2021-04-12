@@ -4,7 +4,6 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
-var bitcoinex = require('bitcoinex');
 
 //Imports
 const Rr = require("./commands/rr");
@@ -19,6 +18,7 @@ const Meme = require('./commands/meme');
 const Moderation = require('./commands/moderation');
 const Case = require('./commands/case');
 const WeatherFile = require('./commands/weather');
+const Btc = require('./commands/btc');
 
 //Functions
 const Shuffle = require('./functions/shuffle');
@@ -104,16 +104,11 @@ client.on('message', msg => {
     WeatherFile.execute(msg, args);
   }
 
-  else if (command === "btc") {
-    bitcoinex.getPriceWith('bitstamp', 'usd', function(err, priceObject) {
-      if (err)
-          msg.channel.send("There was a Error");
-      else 
-          msg.channel.send("Bitcoin is currently "+priceObject.last+" $");
-  });
+  else if (command === "btc" || command === "bitcoin") {
+    Btc.execute(msg);
   }
 
-  
+  //TODO: CARRY THIS TO COMMANDS
 //////////////////////////////////Blackjack//////////////////////////////////////
 
   else if (command === "bj") {
