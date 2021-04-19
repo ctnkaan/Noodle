@@ -166,11 +166,13 @@ client.on('message', msg => {
   else if (command === "s" && gameStarted == true) {
     msg.channel.send("CPU has "+ cpuDeck[0] + " and "+ cpuDeck[1]);
 
-    if (cpuSum > 21) {
-      msg.channel.send("CPU Bust");
+    if (cpuSum > sum) {
+      console.log(cpuSum);
+      console.log(sum);
+      msg.channel.send("CPU wins !");
       stack = [], playerDeck = [], cpuDeck = [], curr, sum = 0;
       gameStarted = false;
-    } 
+    }
 
     while(gameStarted == true) {
       curr = stack.pop();
@@ -192,6 +194,7 @@ client.on('message', msg => {
 
       } else if (cpuSum > sum) {
         console.log(cpuSum);
+        console.log(sum);
         msg.channel.send("CPU wins !");
         stack = [], playerDeck = [], cpuDeck = [], curr, sum = 0;
         gameStarted = false;
