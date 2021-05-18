@@ -5,6 +5,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 var webshot = require('webshot-node');
+var fs = require('fs');
 
 //Imports
 const Rr = require("./commands/rr");
@@ -40,7 +41,7 @@ client.on('ready', () => {
 client.on('message', msg => {
 
   if (!msg.content.startsWith("!!") || msg.author.bot) return;
-  const args = msg.content.slice("!!".length).split(' ');
+  let args = msg.content.slice("!!".length).split(' ');
   const command = args.shift().toLowerCase();
 
 
@@ -110,9 +111,14 @@ client.on('message', msg => {
   }
 
   else if (command === "test") {
-    webshot('google.com', 'img.png', function(err) {
+    args = args.toString()
+    try {
+      webshot(args, 'img.png', function(err) {
       console.log(err)
     });
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   else if (command === "send") {
