@@ -4,6 +4,7 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
+var webshot = require('webshot-node');
 
 //Imports
 const Rr = require("./commands/rr");
@@ -108,8 +109,23 @@ client.on('message', msg => {
     Btc.execute(msg);
   }
 
+  else if (command === "test") {
+    webshot('google.com', 'img.png', function(err) {
+      console.log(err)
+    });
+  }
+
+  else if (command === "send") {
+      msg.channel.send({
+      files: [{
+        attachment: "img.png",
+        name: "img.png"
+      }]
+    })
+  }
+
   //TODO: CARRY THIS TO COMMANDS
-//////////////////////////////////Blackjack//////////////////////////////////////
+  //////////////////////////////////Blackjack//////////////////////////////////////
 
   else if (command === "bj") {
 
@@ -211,7 +227,5 @@ client.on('message', msg => {
 /////////////////////////////////Blackjack//////////////////////////////////////
   
 });
-
-  
 
 client.login(process.env.DISCORD_KEY);
