@@ -4,7 +4,8 @@
   "description": "Disord bot developed by kaan, mehmetcan and can.",
   "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,7 @@
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
     "memejs": "^1.2.3",
-    "novelcovid": "^3.0.0",
-    "openweather-apis": "^4.4.1"
+    "openweather-apis": "^4.4.1",
+    "webshot-node": "^0.18.2"
   }
 }

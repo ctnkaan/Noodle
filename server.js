@@ -4,6 +4,7 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
+var fs = require('fs');
 
 //Imports
 const Rr = require("./commands/rr");
@@ -19,6 +20,8 @@ const Moderation = require('./commands/moderation');
 const Case = require('./commands/case');
 const WeatherFile = require('./commands/weather');
 const Btc = require('./commands/btc');
+const WS = require("./commands/webshot");
+const WSS = require("./commands/webshot-send");
 
 //Functions
 const Shuffle = require('./functions/shuffle');
@@ -39,7 +42,7 @@ client.on('ready', () => {
 client.on('message', msg => {
 
   if (!msg.content.startsWith("!!") || msg.author.bot) return;
-  const args = msg.content.slice("!!".length).split(' ');
+  let args = msg.content.slice("!!".length).split(' ');
   const command = args.shift().toLowerCase();
 
 
@@ -108,8 +111,19 @@ client.on('message', msg => {
     Btc.execute(msg);
   }
 
+  //Webshot capture
+  else if (command === "ws") {
+    args = args.toString();
+    WS.execute(args);
+  }
+
+  //Webshot send
+  else if (command === "s") {
+    WSS.execute(msg);
+  }
+
   //TODO: CARRY THIS TO COMMANDS
-//////////////////////////////////Blackjack//////////////////////////////////////
+  //////////////////////////////////Blackjack//////////////////////////////////////
 
   else if (command === "bj") {
 
@@ -211,7 +225,5 @@ client.on('message', msg => {
 /////////////////////////////////Blackjack//////////////////////////////////////
   
 });
-
-  
 
 client.login(process.env.DISCORD_KEY);
