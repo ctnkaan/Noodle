@@ -4,7 +4,8 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
-var fs = require('fs');
+const fs = require('fs'); //changed from var
+
 
 //Imports
 const Rr = require("./commands/rr");
@@ -22,6 +23,8 @@ const WeatherFile = require('./commands/weather');
 const Btc = require('./commands/btc');
 const WS = require("./commands/webshot");
 const WSS = require("./commands/webshot-send");
+const OSU = require("./commands/osu")
+
 
 //Functions
 const Shuffle = require('./functions/shuffle');
@@ -122,6 +125,11 @@ client.on('message', msg => {
     WSS.execute(msg);
   }
 
+  //Osu Test
+  else if (command === "osu") {
+    OSU.execute(msg, args);
+  }
+
   //TODO: CARRY THIS TO COMMANDS
   //////////////////////////////////Blackjack//////////////////////////////////////
 
@@ -177,7 +185,7 @@ client.on('message', msg => {
     }
   }
 
-  else if (command === "s" && gameStarted == true) {
+  else if (command === "s" && gameStarted === true) {
     msg.channel.send("CPU has "+ cpuDeck[0] + " and "+ cpuDeck[1]);
 
     if (cpuSum > sum) {

@@ -26,6 +26,7 @@
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
     "memejs": "^1.2.3",
+    "node-osu": "^2.2.1",
     "openweather-apis": "^4.4.1",
     "webshot-node": "^0.18.2"
   }
