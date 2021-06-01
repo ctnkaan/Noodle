@@ -2,13 +2,12 @@ var webshot = require('webshot-node');
 const WSS = require("./webshot-send");
 
 module.exports = {
-    name: 'webshot',
+    name: 'covid',
     description: 'display img of a website',
-    execute(args, msg) {
-      msg.channel.send("Capturing your Image...");
-        args = args.toString()
+    execute(msg) {
+      msg.channel.send("Getting data...");
         try {
-          webshot(args, 'img.png', (err) => {
+          webshot("https://covid19asi.saglik.gov.tr/", 'img.png', (err) => {
             if (err) throw err;
             console.log('Captured');
          }, (sus) => {

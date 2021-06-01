@@ -22,8 +22,8 @@ const Case = require('./commands/case');
 const WeatherFile = require('./commands/weather');
 const Btc = require('./commands/btc');
 const WS = require("./commands/webshot");
-const WSS = require("./commands/webshot-send");
-const OSU = require("./commands/osu")
+const OSU = require("./commands/osu");
+const Covid = require("./commands/covid");
 
 
 //Functions
@@ -117,12 +117,12 @@ client.on('message', msg => {
   //Webshot capture
   else if (command === "ws") {
     args = args.toString();
-    WS.execute(args);
+    WS.execute(args, msg);
   }
 
   //Webshot send
-  else if (command === "s") {
-    WSS.execute(msg);
+  else if (command === "covid") {
+    Covid.execute(msg);
   }
 
   //Osu Test
