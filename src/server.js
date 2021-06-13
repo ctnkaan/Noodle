@@ -4,10 +4,10 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const fs = require('fs'); //changed from var
 
 
 //Imports
+{
 const Rr = require("./commands/rr");
 const Stats = require("./commands/stats");
 const Bless = require("./commands/bless");
@@ -27,12 +27,14 @@ const Covid = require("./commands/covid");
 const BJ = require("./commands/blackjack");
 const BJhit = require("./commands/blackjack-hit");
 const BJStay = require("./commands/blackjack-stay");
+}
 
+//Blackjack variables
+let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false;
 
+//RR
+let bullets = 6; 
 
-let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false; //blackjack
-
-let bullets = 6; //RR 
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -46,7 +48,6 @@ client.on('message', msg => {
   if (!msg.content.startsWith("!!") || msg.author.bot) return;
   let args = msg.content.slice("!!".length).split(' ');
   const command = args.shift().toLowerCase();
-
 
 
   //Russian Rulatte
@@ -109,34 +110,38 @@ client.on('message', msg => {
     WeatherFile.execute(msg, args);
   }
 
+  //Bitcoin
   else if (command === "btc" || command === "bitcoin") {
     Btc.execute(msg);
   }
 
-  //Webshot capture
+  //Webshot
   else if (command === "ws") {
     args = args.toString();
     WS.execute(args, msg);
   }
 
-  //Webshot send
+  //Covid
   else if (command === "covid") {
     Covid.execute(msg);
   }
 
-  //Osu Test
+  //Osu
   else if (command === "osu") {
     OSU.execute(msg, args);
   }
 
+  //Blackjack Start
   else if (command === "bj") {
     BJ.execute(msg, gameStarted, stack, curr, playerDeck, cpuDeck);
   }
   
+  //Blackjack Hit
   else if (command === "h" && gameStarted === true) {
     BJhit.execute(msg, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
   }
 
+  //Blackjack Stay
   else if (command === "s" && gameStarted === true) {
     BJStay.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
   }
