@@ -7,7 +7,6 @@ const client = new Discord.Client();
 
 
 //Imports
-{
 const Rr = require("./commands/rr");
 const Stats = require("./commands/stats");
 const Bless = require("./commands/bless");
@@ -27,7 +26,6 @@ const Covid = require("./commands/covid");
 const BJ = require("./commands/blackjack");
 const BJhit = require("./commands/blackjack-hit");
 const BJStay = require("./commands/blackjack-stay");
-}
 
 //Blackjack variables
 let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false;
