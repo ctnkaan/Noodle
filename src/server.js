@@ -24,10 +24,9 @@ const Btc = require('./commands/btc');
 const WS = require("./commands/webshot");
 const OSU = require("./commands/osu");
 const Covid = require("./commands/covid");
-
-
-//Functions
-const Shuffle = require('./functions/shuffle');
+const BJ = require("./commands/blackjack");
+const BJhit = require("./commands/blackjack-hit");
+const BJStay = require("./commands/blackjack-stay");
 
 
 
@@ -130,107 +129,17 @@ client.on('message', msg => {
     OSU.execute(msg, args);
   }
 
-  //TODO: CARRY THIS TO COMMANDS
-  //////////////////////////////////Blackjack//////////////////////////////////////
-
   else if (command === "bj") {
-
-    gameStarted = true;
-
-    for (let i = 0; i < 13; i++) {
-        for (let j = 1; j <= 13; j++) {
-            if (j > 10) 
-              stack.push(10);
-            else 
-              stack.push(j);
-        }
-    }
-
-    Shuffle.execute(stack)
-
-    console.log(stack);
-
-    //setting up players hand
-    for (let i = 0; i < 2; i++) {
-        curr = stack.pop()
-        playerDeck[i] = curr;
-    }
-
-    //setting up cpu hand
-    for (let i = 0; i < 2; i++) {
-        curr = stack.pop()
-        cpuDeck[i] = curr;
-    }
-
-    console.log(cpuDeck);
-
-    msg.channel.send("Cpu has "+ cpuDeck[0]+ " and a hidden card\n\nYou have "+playerDeck[0]+" and "+playerDeck[1]+"\n\nType !!h for Hit\nType !!s for Stay");
+    BJ.execute(msg, gameStarted, stack, curr, playerDeck, cpuDeck);
   }
   
   else if (command === "h" && gameStarted === true) {
-    curr = stack.pop();
-    console.log(curr);
-    playerDeck.push(curr);
-
-    sum=0;
-    for (let i = 0; i < playerDeck.length; i++)
-      sum += playerDeck[i];
-
-    msg.channel.send("You draw "+curr+"\nYour current sum is "+sum);
-
-    if (sum > 21) {
-      msg.channel.send("Bust!");
-      stack = [], playerDeck = [], cpuDeck = [], curr, sum = 0;
-      gameStarted = false;
-    }
+    BJhit.execute(msg, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
   }
 
   else if (command === "s" && gameStarted === true) {
-    msg.channel.send("CPU has "+ cpuDeck[0] + " and "+ cpuDeck[1]);
-
-    if (cpuSum > sum) {
-      console.log(cpuSum);
-      console.log(sum);
-      msg.channel.send("CPU wins !");
-      stack = [], playerDeck = [], cpuDeck = [], curr, sum = 0;
-      gameStarted = false;
-    }
-
-    while(gameStarted == true) {
-      curr = stack.pop();
-      console.log(curr);
-      cpuDeck.push(curr);
-
-      cpuSum=0;
-      for (let i = 0; i < cpuDeck.length; i++) 
-        cpuSum+= cpuDeck[i];
-      
-        
-      msg.channel.send("CPU draws "+curr+"\nCurrent CPU sum is "+cpuSum);
-
-      if (cpuSum > 21) {
-        msg.channel.send("CPU Bust !");
-        stack = [], playerDeck = [], cpuDeck = [], curr, sum = 0;
-        gameStarted = false;
-        break;
-
-      } else if (cpuSum > sum) {
-        console.log(cpuSum);
-        console.log(sum);
-        msg.channel.send("CPU wins !");
-        stack = [], playerDeck = [], cpuDeck = [], curr, sum = 0;
-        gameStarted = false;
-        break;
-
-      } else {
-        msg.channel.send("Stalemate !");
-        stack = [], playerDeck = [], cpuDeck = [], curr, sum = 0;
-        gameStarted = false;
-      }
-    }
+    BJStay.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
   }
-
-/////////////////////////////////Blackjack//////////////////////////////////////
   
 });
 
