@@ -2,4 +2,4 @@
 npm-debug.log
 yarn-error.log
 img.png
-/.env
+/src/.env
