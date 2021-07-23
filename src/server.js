@@ -105,7 +105,8 @@ client.on('message', msg => {
 
   //Weather
   else if (command === "weather") {
-    WeatherFile.execute(msg, args);
+    msg.channel.send("Sorry the weather command is currently not working :(");
+    //WeatherFile.execute(msg, args);
   }
 
   //Bitcoin
