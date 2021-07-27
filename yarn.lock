@@ -56,6 +56,20 @@
     "@discordjs/node-pre-gyp" "^0.2.0"
     node-addon-api "^3.1.0"
 
+"@sushibtw/youtubei@0.0.1-rc.16":
+  version "0.0.1-rc.16"
+  resolved "https://registry.yarnpkg.com/@sushibtw/youtubei/-/youtubei-0.0.1-rc.16.tgz#13965d143774cf5bb7694c7999144cf9ac3192ac"
+  integrity sha512-32MkIH8pdF2urzs5BV7/upXx2S5uJ0W+TjiMfTPwTS8GFQdfy+QvqvnlMJ2xFGBHL2diM/jiF0sLrWuG+r2wpw==
+
+"@sushibtw/ytdl-core@1.0.0-patch":
+  version "1.0.0-patch"
+  resolved "https://registry.yarnpkg.com/@sushibtw/ytdl-core/-/ytdl-core-1.0.0-patch.tgz#d35290e93d108860ff53a9871d080fd19ba63806"
+  integrity sha512-+HwsvViwgv55RkjtWNnsD1ZPx3QxZ/KOTf7EE6U3f+7qTzWqNoKZV2mJYERzrUHPx9+YRY3kBYMJ/+WVY6B/Gg==
+  dependencies:
+    m3u8stream "^0.8.3"
+    miniget "^4.0.0"
+    sax "^1.1.3"
+
 "@types/node@^10.0.3":
   version "10.17.60"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.60.tgz#35f3d6213daed95da7f0f73e75bcc6980e90597b"
@@ -524,6 +538,19 @@ detect-libc@^1.0.3:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
   integrity sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
 
+discord-music-player@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/discord-music-player/-/discord-music-player-7.2.0.tgz#9060da5906517d2a2ed4342e4c78ecd57e3d2c6f"
+  integrity sha512-oFov4sx8KTcsIRxq9b0d5Fx+Pl7ZvQl7DI4fKQwZWc3B1dToToD4xyR19WrRjjlS2VRP7NYLrVmojUYzMoc9TQ==
+  dependencies:
+    "@sushibtw/youtubei" "0.0.1-rc.16"
+    "@sushibtw/ytdl-core" "1.0.0-patch"
+    ffmpeg-static "^4.2.7"
+    html-entities "^2.1.0"
+    miniget "^4.2.0"
+    spotify-url-info "^2.2.0"
+    ytsr "^3.3.1"
+
 discord.js@^12.5.1:
   version "12.5.3"
   resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-12.5.3.tgz#56820d473c24320871df9ea0bbc6b462f21cf85c"
@@ -870,6 +897,11 @@ himalaya@~1.1.0:
   resolved "https://registry.yarnpkg.com/himalaya/-/himalaya-1.1.0.tgz#31724ae9d35714cd7c6f4be94888953f3604606a"
   integrity sha512-LLase1dHCRMel68/HZTFft0N0wti0epHr3nNY7ynpLbyZpmrKMQ8YIpiOV77TM97cNpC8Wb2n6f66IRggwdWPw==
 
+html-entities@^2.1.0:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-2.3.2.tgz#760b404685cb1d794e4f4b744332e3b00dcfe488"
+  integrity sha512-c3Ab/url5ksaT0WyleslpBEthOzWhrjQbg75y7XUsfSzi3Dgzt0l8w5e7DylRn15MTlMMD58dTfzddNS2kcAjQ==
+
 htmlparser2@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-6.1.0.tgz#c4d762b6c3371a05dbe65e94ae43a9f845fb8fb7"
@@ -1111,7 +1143,7 @@ mime@^2.4.6:
   resolved "https://registry.yarnpkg.com/mime/-/mime-2.5.2.tgz#6e3dc6cc2b9510643830e5f19d5cb753da5eeabe"
   integrity sha512-tqkh47FzKeCPD2PUiPB6pkbMzsCasjxAfC62/Wap5qrUWcb+sFasXUC5I3gYM5iBM8v/Qpn4UK0x+j0iHyFPDg==
 
-miniget@^4.0.0:
+miniget@^4.0.0, miniget@^4.2.0:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/miniget/-/miniget-4.2.1.tgz#11a1c24817a059e292378eb9cff4328d9240c665"
   integrity sha512-O/DduzDR6f+oDtVype9S/Qu5hhnx73EDYGyZKwU/qN82lehFZdfhoa4DT51SpsO+8epYrB3gcRmws56ROfTIoQ==
@@ -1876,3 +1908,10 @@ ytdl-core@^4.5.0:
     m3u8stream "^0.8.3"
     miniget "^4.0.0"
     sax "^1.1.3"
+
+ytsr@^3.3.1:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/ytsr/-/ytsr-3.5.0.tgz#116406e39e06211a19b1efddcdf56668442d26b2"
+  integrity sha512-e92xxZI8OxUCsbLtn0NfkuKuSDN4YZtG+ow64G3N4b+bkEWCjR0hEPye+iCBA07/02OXPmWHD88FPy1hq0izMQ==
+  dependencies:
+    miniget "^4.2.0"

@@ -5,6 +5,15 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+const { Player } = require("discord-music-player");
+const player = new Player(client, {
+    leaveOnEmpty: true,
+    leaveOnEnd: false,
+    leaveOnStop: false,
+    quality: 'high',
+});
+
+client.player = player;
 
 //Imports
 const Rr = require("./commands/rr");
@@ -34,14 +43,19 @@ let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameSt
 let bullets = 6; 
 
 
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
-  client.user.setActivity("!!help");
+  client.user.setActivity("!!help, !!play, !!reddit, !!meme");
 });
 
+client.player.on('songAdd',  (message, queue, song) =>
+    message.channel.send(`**${song.name}** has been added to the queue!`))
+    .on('songFirst',  (message, song) =>
+        message.channel.send(`**${song.name}** is now playing!`));
 
-client.on('message', msg => {
+client.on('message', async (msg) => {
 
   if (!msg.content.startsWith("!!") || msg.author.bot) return;
   let args = msg.content.slice("!!".length).split(' ');
@@ -51,6 +65,84 @@ client.on('message', msg => {
   //Russian Rulatte
   if (command === "rr") {
     bullets = Rr.execute(msg, bullets);
+  }
+
+  else if (command === "play") {
+    try {
+    client.player.play(msg, args.join(' '));
+    } catch (e) {
+      console.log("Error");
+    }
+  }
+
+  else if (command === 'playlist') {
+    // If maxSongs is -1, will be infinite.
+    await client.player.playlist(msg, {
+        search: args.join(' '),
+        maxSongs: 20
+    });
+    // If there were no errors the Player#playlistAdd event will fire and the playlist will not be null.
+  }
+
+  else if (command === 'skip'){
+    let song = client.player.skip(msg);
+    if(song)
+        msg.channel.send(`${song.name} was skipped!`);
+  }
+
+  else if (command === 'clear'){
+    let isDone = client.player.clearQueue(msg);
+    if(isDone)
+        msg.channel.send('Queue was cleared!');
+  }
+
+  else if (command === 'queue'){
+    let queue = client.player.getQueue(msg);
+    if(queue)
+        msg.channel.send('Queue:\n'+(queue.songs.map((song, i) => {
+            return `${i === 0 ? 'Now Playing' : `#${i+1}`} - ${song.name} | ${song.author}`
+        }).join('\n')));
+  }
+
+  else if (command === 'pause'){
+    let song = client.player.pause(msg);
+    if(song) 
+        msg.channel.send(`${song.name} was paused!`);
+  }
+
+  else if (command === 'resume'){
+    let song = client.player.resume(msg);
+    if(song)
+        msg.channel.send(`${song.name} was resumed!`);
+  }
+
+  else if(command === 'stop'){
+    let isDone = client.player.stop(msg);
+    if(isDone)
+        msg.channel.send('Music stopped, the Queue was cleared!');
+  }
+
+  else if (command === 'loop') {
+    let toggle = client.player.toggleLoop(msg);
+    
+    if(toggle === null)
+        return;
+    // Send a message with the toggle information
+    else if (toggle)
+        msg.channel.send('I will now repeat the current playing song.');
+    else msg.channel.send('I will not longer repeat the current playing song.');
+
+  }
+
+  else if (command === 'progress'){
+    let progressBar = client.player.createProgressBar(msg, {
+        size: 15,
+        block: '=',
+        arrow: '>'
+    });
+    if(progressBar)
+        msg.channel.send(progressBar);
+    // Example: [==>                  ][00:25/04:07]
   }
 
   //Stats
