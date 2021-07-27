@@ -8,7 +8,7 @@ const client = new Discord.Client();
 const { Player } = require("discord-music-player");
 const player = new Player(client, {
     leaveOnEmpty: true,
-    leaveOnEnd: false,
+    leaveOnEnd: true,
     leaveOnStop: false,
     quality: 'high',
 });
@@ -67,21 +67,13 @@ client.on('message', async (msg) => {
     bullets = Rr.execute(msg, bullets);
   }
 
+  //--------------------------------------CLEANUP--------------------------------------------------------------------------
   else if (command === "play") {
     try {
     client.player.play(msg, args.join(' '));
     } catch (e) {
       console.log("Error");
     }
-  }
-
-  else if (command === 'playlist') {
-    // If maxSongs is -1, will be infinite.
-    await client.player.playlist(msg, {
-        search: args.join(' '),
-        maxSongs: 20
-    });
-    // If there were no errors the Player#playlistAdd event will fire and the playlist will not be null.
   }
 
   else if (command === 'skip'){
