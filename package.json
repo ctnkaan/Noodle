@@ -1,7 +1,7 @@
 {
   "name": "noodle",
   "version": "1.0.0",
-  "description": "Disord bot developed by kaan, mehmetcan and can.",
+  "description": "Disord bot developed and maintained by Çetin Kaan Taşkıngenç.",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
