@@ -69,11 +69,10 @@ client.on('message', async (msg) => {
 
   //--------------------------------------CLEANUP--------------------------------------------------------------------------
   else if (command === "play") {
-    try {
-    client.player.play(msg, args.join(' '));
-    } catch (e) {
-      console.log("Error");
-    }
+    let song = await client.player.play(message, args.join(' '));
+    if(song)
+      console.log(`Playing ${song.name}`);
+    return;
   }
 
   else if (command === 'skip'){
@@ -136,6 +135,8 @@ client.on('message', async (msg) => {
         msg.channel.send(progressBar);
     // Example: [==>                  ][00:25/04:07]
   }
+
+  //--------------------------------------CLEANUP--------------------------------------------------------------------------
 
   //Stats
   else if (command === "stats") {
