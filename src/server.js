@@ -72,7 +72,6 @@ client.on('message', async (msg) => {
     let song = await client.player.play(msg, args.join(' '));
     if(song)
       console.log(`Playing ${song.name}`);
-    return;
   }
 
   else if (command === 'skip'){
