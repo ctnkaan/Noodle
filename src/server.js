@@ -69,7 +69,7 @@ client.on('message', async (msg) => {
 
   //--------------------------------------CLEANUP--------------------------------------------------------------------------
   else if (command === "play") {
-    let song = await client.player.play(message, args.join(' '));
+    let song = await client.player.play(msg, args.join(' '));
     if(song)
       console.log(`Playing ${song.name}`);
     return;
