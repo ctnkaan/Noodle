@@ -8,7 +8,7 @@ const client = new Discord.Client();
 const { Player } = require("discord-music-player");
 const player = new Player(client, {
     leaveOnEmpty: true,
-    leaveOnEnd: true,
+    leaveOnEnd: false,
     leaveOnStop: false,
     quality: 'high',
 });

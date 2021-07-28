@@ -4,8 +4,8 @@
   "description": "Disord bot developed by kaan, mehmetcan and can.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "test": "node server.js"
   },
   "repository": {
     "type": "git",
