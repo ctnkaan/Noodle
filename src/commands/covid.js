@@ -1,5 +1,5 @@
 var webshot = require('webshot-node');
-const WSS = require("./webshot-send");
+const WSS = require("./webshot/webshot-send");
 
 module.exports = {
     name: 'covid',

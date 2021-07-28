@@ -8,12 +8,16 @@ const client = new Discord.Client();
 const { Player } = require("discord-music-player");
 const player = new Player(client, {
     leaveOnEmpty: true,
-    leaveOnEnd: false,
-    leaveOnStop: false,
+    leaveOnEnd: true,
     quality: 'high',
 });
 
 client.player = player;
+
+client.player.on('songAdd',  (message, queue, song) => 
+  message.channel.send(`**${song.name}** has been added to the queue!`)).on('songFirst',  (message, song) => 
+    message.channel.send(`**${song.name}** is now playing!`));
+
 
 //Imports
 const Rr = require("./commands/rr");
@@ -29,12 +33,13 @@ const Moderation = require('./commands/moderation');
 const Case = require('./commands/case');
 const WeatherFile = require('./commands/weather');
 const Btc = require('./commands/btc');
-const WS = require("./commands/webshot");
+const WS = require("./commands/webshot/webshot");
 const OSU = require("./commands/osu");
 const Covid = require("./commands/covid");
-const BJ = require("./commands/blackjack");
-const BJhit = require("./commands/blackjack-hit");
-const BJStay = require("./commands/blackjack-stay");
+const BJ = require("./commands/blackjack/blackjack");
+const BJhit = require("./commands/blackjack/blackjack-hit");
+const BJStay = require("./commands/blackjack/blackjack-stay");
+const Play = require('./commands/music/play');
 
 //Blackjack variables
 let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false;
@@ -50,10 +55,6 @@ client.on('ready', () => {
   client.user.setActivity("!!help, !!play, !!reddit, !!meme");
 });
 
-client.player.on('songAdd',  (message, queue, song) =>
-    message.channel.send(`**${song.name}** has been added to the queue!`))
-    .on('songFirst',  (message, song) =>
-        message.channel.send(`**${song.name}** is now playing!`));
 
 client.on('message', async (msg) => {
 
@@ -62,17 +63,12 @@ client.on('message', async (msg) => {
   const command = args.shift().toLowerCase();
 
 
-  //Russian Rulatte
-  if (command === "rr") {
-    bullets = Rr.execute(msg, bullets);
+  //--------------------------------------CLEANUP--------------------------------------------------------------------------
+  if (command === "play") {
+    Play.execute(client, msg, args);
   }
 
-  //--------------------------------------CLEANUP--------------------------------------------------------------------------
-  else if (command === "play") {
-    let song = await client.player.play(msg, args.join(' '));
-    if(song)
-      console.log(`Playing ${song.name}`);
-  }
+  //discord bot music play
 
   else if (command === 'skip'){
     let song = client.player.skip(msg);
@@ -136,6 +132,11 @@ client.on('message', async (msg) => {
   }
 
   //--------------------------------------CLEANUP--------------------------------------------------------------------------
+
+  //Russian Rulatte
+  else if (command === "rr") {
+    bullets = Rr.execute(msg, bullets);
+  }
 
   //Stats
   else if (command === "stats") {

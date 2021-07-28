@@ -1,5 +1,5 @@
 //Functions
-const Shuffle = require('../functions/shuffle');
+const Shuffle = require('../../functions/shuffle');
 
 module.exports = {
     name: 'Blackjack',
