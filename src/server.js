@@ -7,8 +7,11 @@ const client = new Discord.Client();
 
 const { Player } = require("discord-music-player");
 const player = new Player(client, {
-    leaveOnEmpty: true,
     leaveOnEnd: true,
+    leaveOnStop: true,
+    leaveOnEmpty: false,
+    timeout: 0,
+    volume: 150,
     quality: 'high',
 });
 
@@ -52,19 +55,21 @@ let bullets = 6;
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
-  client.user.setActivity("!!help, !!play, !!reddit, !!meme");
+  client.user.setActivity("-help, -play, -reddit, -meme");
 });
 
 
-client.on('message', async (msg) => {
+client.on('message', (msg) => {
 
-  if (!msg.content.startsWith("!!") || msg.author.bot) return;
-  let args = msg.content.slice("!!".length).split(' ');
+  try {
+
+  if (!msg.content.startsWith("-") || msg.author.bot) return;
+  let args = msg.content.slice("-".length).split(' ');
   const command = args.shift().toLowerCase();
 
 
   //--------------------------------------CLEANUP--------------------------------------------------------------------------
-  if (command === "play") {
+  if (command === "p" || command === "play") {
     Play.execute(client, msg, args);
   }
 
@@ -82,7 +87,7 @@ client.on('message', async (msg) => {
         msg.channel.send('Queue was cleared!');
   }
 
-  else if (command === 'queue'){
+  else if (command === 'queue' || command === 'q'){
     let queue = client.player.getQueue(msg);
     if(queue)
         msg.channel.send('Queue:\n'+(queue.songs.map((song, i) => {
@@ -120,7 +125,7 @@ client.on('message', async (msg) => {
 
   }
 
-  else if (command === 'progress'){
+  else if (command === 'progress' || command === 'prog'){
     let progressBar = client.player.createProgressBar(msg, {
         size: 15,
         block: '=',
@@ -144,9 +149,9 @@ client.on('message', async (msg) => {
   }
 
   //Bless
-  else if (command === 'bless') {
-    Bless.execute(msg);
-  }
+  //else if (command === 'bless') {
+    //Bless.execute(msg);
+  //}
 
   //Help
   else if (command === 'help') {
@@ -229,7 +234,11 @@ client.on('message', async (msg) => {
   else if (command === "s" && gameStarted === true) {
     BJStay.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
   }
-  
+
+  } catch (err) {
+    msg.channel.send("Oops. I had an error");
+    console.log(err);
+  }
 });
 
 client.login(process.env.DISCORD_KEY);
