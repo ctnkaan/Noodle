@@ -22,7 +22,6 @@ Thanks to Can Yılmazer for this awesome logo !
     -loop --> loop the song 
     
     ---------MINIGAMES-----------
-    
     -roll <number> -->   Random number between 1 and <number>
     -rps -->   Rock Paper Scissors
     -rr -->   Russian Roulette
@@ -35,6 +34,8 @@ Thanks to Can Yılmazer for this awesome logo !
     -weather <city> -->   Shows weather of the given city
     -countdown <number> -->   Sets a countdown from <number>
     -osu <username> --> Shows Osu! stats 
+    -ws <website> --> takes image of a webste
+    -covid --> Shows vaccination number for Turkey
     
     ------------MODERATION----------------
     -kick <username> -->Kicks the user from server
