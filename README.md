@@ -5,6 +5,21 @@ Thanks to Can Yılmazer for this awesome logo !
 
 <img src="images/noodle.png" width="400" height="400">
 
+
+
+Installation
+
+    yarn install
+    add your .env file at the src folder
+    
+How To Run (Docker)
+      
+    docker-compose up
+      
+How To Run (Node)
+    
+    node server.js
+
 ----------------------------COMMANDS----------------------------
 
     --------------REDDIT------------
@@ -14,12 +29,12 @@ Thanks to Can Yılmazer for this awesome logo !
     --------------MUSIC-------------
     -p <song> -->   play a song 
     -skip -->   skip the song 
-    -pause --> pause the song 
-    -resume --> resume the song 
-    -clear --> clear the queue 
-    -q --> show the queue 
-    -prog --> show the progress of the song 
-    -loop --> loop the song 
+    -pause -->   pause the song 
+    -resume -->   resume the song 
+    -clear -->   clear the queue 
+    -q -->   show the queue 
+    -prog -->   show the progress of the song 
+    -loop -->   loop the song 
     
     ---------MINIGAMES-----------
     -roll <number> -->   Random number between 1 and <number>
@@ -33,16 +48,10 @@ Thanks to Can Yılmazer for this awesome logo !
     -btc -->   Shows bitcoin value
     -weather <city> -->   Shows weather of the given city
     -countdown <number> -->   Sets a countdown from <number>
-    -osu <username> --> Shows Osu! stats 
-    -ws <website> --> takes image of a webste
-    -covid --> Shows vaccination number for Turkey
+    -osu <username> -->   Shows Osu! stats 
+    -ws <website> -->   takes image of a webste
+    -covid -->   Shows vaccination number for Turkey
     
     ------------MODERATION----------------
-    -kick <username> -->Kicks the user from server
+    -kick <username> -->   Kicks the user from server
     -ban <username> -->   Slams the banhammer to that user
-
-
-Installation
-
-    yarn install
-    add your .env file at the src folder
