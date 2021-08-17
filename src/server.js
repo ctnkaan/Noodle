@@ -25,7 +25,6 @@ client.player.on('songAdd',  (message, queue, song) =>
 //Imports
 const Rr = require("./commands/rr");
 const Stats = require("./commands/stats");
-const Bless = require("./commands/bless");
 const Help = require("./commands/help");
 const Rps = require("./commands/rps");
 const Countdown = require("./commands/countdown");
@@ -50,6 +49,7 @@ const Pause = require('./commands/music/pause');
 const Resume = require('./commands/music/resume');
 const Stop = require('./commands/music/stop');
 const Loop = require('./commands/music/loop');
+const Progress = require('./commands/music/progress');
 
 
 //Blackjack variables
@@ -117,14 +117,7 @@ client.on('message', (msg) => {
 
   //Progress
   else if (command === 'progress' || command === 'prog'){
-    let progressBar = client.player.createProgressBar(msg, {
-        size: 15,
-        block: '=',
-        arrow: '>'
-    });
-    if(progressBar)
-        msg.channel.send(progressBar);
-    // Example: [==>                  ][00:25/04:07]
+    Progress.execute(client, msg);
   }
 
   //Russian Rulatte
@@ -136,11 +129,6 @@ client.on('message', (msg) => {
   else if (command === "stats") {
     Stats.execute(msg, client);
   }
-
-  //Bless
-  //else if (command === 'bless') {
-    //Bless.execute(msg);
-  //}
 
   //Help
   else if (command === 'help') {
