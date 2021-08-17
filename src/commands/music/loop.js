@@ -1,8 +1,14 @@
 module.exports = {
-    name: 'bless',
-    description: 'display a gif img',
-    execute(msg) {
-        msg.channel.send('B L E S S E D');
-        msg.channel.send("https://i.pinimg.com/originals/c4/27/7d/c4277d9d382493ff8c55e975d438ed1c.gif");
+    name: 'loop',
+    description: 'loop the music',
+    execute (client, msg) {
+        let toggle = client.player.toggleLoop(msg);
+    
+        if(toggle === null)
+            return;
+        // Send a message with the toggle information
+        else if (toggle)
+            msg.channel.send('I will now repeat the current playing song. To stop the loop type -loop again.');
+        else msg.channel.send('I will not longer repeat the current playing song.');
     },
-   };
+};

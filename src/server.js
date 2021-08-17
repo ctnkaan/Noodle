@@ -49,6 +49,7 @@ const Queue = require('./commands/music/queue');
 const Pause = require('./commands/music/pause');
 const Resume = require('./commands/music/resume');
 const Stop = require('./commands/music/stop');
+const Loop = require('./commands/music/loop');
 
 
 //Blackjack variables
@@ -62,7 +63,7 @@ let bullets = 6;
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
-  client.user.setActivity("-help, -play, -reddit, -meme");
+  client.user.setActivity("-help");
 });
 
 
@@ -111,15 +112,7 @@ client.on('message', (msg) => {
 
   //Loop
   else if (command === 'loop') {
-    let toggle = client.player.toggleLoop(msg);
-    
-    if(toggle === null)
-        return;
-    // Send a message with the toggle information
-    else if (toggle)
-        msg.channel.send('I will now repeat the current playing song.');
-    else msg.channel.send('I will not longer repeat the current playing song.');
-
+    Loop.execute(client, msg);
   }
 
   //Progress
