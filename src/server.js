@@ -46,6 +46,8 @@ const Play = require('./commands/music/play');
 const Skip = require('./commands/music/skip');
 const Clear = require('./commands/music/clear');
 const Queue = require('./commands/music/queue');
+const Pause = require('./commands/music/pause');
+
 
 //Blackjack variables
 let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false;
@@ -90,24 +92,26 @@ client.on('message', (msg) => {
     Queue.execute(client, msg);
   }
 
+  //Pause
   else if (command === 'pause'){
-    let song = client.player.pause(msg);
-    if(song) 
-        msg.channel.send(`${song.name} was paused!`);
+    Pause.execute(client, msg);
   }
 
+  //Resume
   else if (command === 'resume'){
     let song = client.player.resume(msg);
     if(song)
         msg.channel.send(`${song.name} was resumed!`);
   }
 
+  //Stop
   else if(command === 'stop'){
     let isDone = client.player.stop(msg);
     if(isDone)
         msg.channel.send('Music stopped, the Queue was cleared!');
   }
 
+  //Loop
   else if (command === 'loop') {
     let toggle = client.player.toggleLoop(msg);
     
@@ -120,6 +124,7 @@ client.on('message', (msg) => {
 
   }
 
+  //Progress
   else if (command === 'progress' || command === 'prog'){
     let progressBar = client.player.createProgressBar(msg, {
         size: 15,
@@ -130,8 +135,6 @@ client.on('message', (msg) => {
         msg.channel.send(progressBar);
     // Example: [==>                  ][00:25/04:07]
   }
-
-  //--------------------------------------CLEANUP--------------------------------------------------------------------------
 
   //Russian Rulatte
   else if (command === "rr") {
