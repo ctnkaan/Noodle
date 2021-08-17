@@ -47,6 +47,7 @@ const Skip = require('./commands/music/skip');
 const Clear = require('./commands/music/clear');
 const Queue = require('./commands/music/queue');
 const Pause = require('./commands/music/pause');
+const Resume = require('./commands/music/resume');
 
 
 //Blackjack variables
@@ -99,9 +100,7 @@ client.on('message', (msg) => {
 
   //Resume
   else if (command === 'resume'){
-    let song = client.player.resume(msg);
-    if(song)
-        msg.channel.send(`${song.name} was resumed!`);
+    Resume.execute(client, msg);
   }
 
   //Stop
