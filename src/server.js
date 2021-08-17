@@ -45,6 +45,7 @@ const BJStay = require("./commands/blackjack/blackjack-stay");
 const Play = require('./commands/music/play');
 const Skip = require('./commands/music/skip');
 const Clear = require('./commands/music/clear');
+const Queue = require('./commands/music/queue');
 
 //Blackjack variables
 let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false;
@@ -84,12 +85,9 @@ client.on('message', (msg) => {
     Clear.execute(client, msg);
   }
 
+  //Queue
   else if (command === 'queue' || command === 'q'){
-    let queue = client.player.getQueue(msg);
-    if(queue)
-        msg.channel.send('Queue:\n'+(queue.songs.map((song, i) => {
-            return `${i === 0 ? 'Now Playing' : `#${i+1}`} - ${song.name} | ${song.author}`
-        }).join('\n')));
+    Queue.execute(client, msg);
   }
 
   else if (command === 'pause'){

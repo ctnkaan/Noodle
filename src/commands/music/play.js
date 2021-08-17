@@ -1,5 +1,3 @@
-
-
 module.exports = {
     name: 'play',
     description: 'play a song',
