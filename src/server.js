@@ -1,4 +1,4 @@
-//<> with ❤️ by Çetin Kaan Taşkıngenç & Mehmetcan Polat
+//<> with ❤️ by Çetin Kaan Taşkıngenç
 
 //Third Party
 require('dotenv').config();
@@ -48,6 +48,7 @@ const Clear = require('./commands/music/clear');
 const Queue = require('./commands/music/queue');
 const Pause = require('./commands/music/pause');
 const Resume = require('./commands/music/resume');
+const Stop = require('./commands/music/stop');
 
 
 //Blackjack variables
@@ -105,9 +106,7 @@ client.on('message', (msg) => {
 
   //Stop
   else if(command === 'stop'){
-    let isDone = client.player.stop(msg);
-    if(isDone)
-        msg.channel.send('Music stopped, the Queue was cleared!');
+    Stop.execute(client, msg);
   }
 
   //Loop
