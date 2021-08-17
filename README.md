@@ -23,7 +23,7 @@ How To Run (Node)
 ----------------------------COMMANDS----------------------------
 
     --------------REDDIT------------
-    -meme -->   Displays a dank meme\n\n+
+    -meme -->   Displays a dank meme
     -reddit <name> -->   Displays a image and comment from the subreddit <subreddit name> 
     
     --------------MUSIC-------------
