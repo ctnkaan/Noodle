@@ -44,6 +44,7 @@ const BJhit = require("./commands/blackjack/blackjack-hit");
 const BJStay = require("./commands/blackjack/blackjack-stay");
 const Play = require('./commands/music/play');
 const Skip = require('./commands/music/skip');
+const Clear = require('./commands/music/clear');
 
 //Blackjack variables
 let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false;
@@ -78,10 +79,9 @@ client.on('message', (msg) => {
     Skip.execute(client, msg);
   }
 
+  //Clear
   else if (command === 'clear'){
-    let isDone = client.player.clearQueue(msg);
-    if(isDone)
-        msg.channel.send('Queue was cleared!');
+    Clear.execute(client, msg);
   }
 
   else if (command === 'queue' || command === 'q'){
