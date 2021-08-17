@@ -43,6 +43,7 @@ const BJ = require("./commands/blackjack/blackjack");
 const BJhit = require("./commands/blackjack/blackjack-hit");
 const BJStay = require("./commands/blackjack/blackjack-stay");
 const Play = require('./commands/music/play');
+const Skip = require('./commands/music/skip');
 
 //Blackjack variables
 let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false;
@@ -61,24 +62,20 @@ client.on('ready', () => {
 
 client.on('message', (msg) => {
 
-  try {
 
   if (!msg.content.startsWith("-") || msg.author.bot) return;
   let args = msg.content.slice("-".length).split(' ');
   const command = args.shift().toLowerCase();
 
 
-  //--------------------------------------CLEANUP--------------------------------------------------------------------------
+  //Play
   if (command === "p" || command === "play") {
     Play.execute(client, msg, args);
   }
 
-  //discord bot music play
-
+  //Skip
   else if (command === 'skip'){
-    let song = client.player.skip(msg);
-    if(song)
-        msg.channel.send(`${song.name} was skipped!`);
+    Skip.execute(client, msg);
   }
 
   else if (command === 'clear'){
@@ -235,10 +232,6 @@ client.on('message', (msg) => {
     BJStay.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
   }
 
-  } catch (err) {
-    msg.channel.send("Oops. I had an error");
-    console.log(err);
-  }
 });
 
 client.login(process.env.DISCORD_KEY);
