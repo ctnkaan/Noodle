@@ -199,12 +199,15 @@ client.on('message', (msg) => {
 
   //Blackjack Start
   else if (command === "bj") {
-    BJ.execute(msg, gameStarted, stack, curr, playerDeck, cpuDeck);
+    gameStarted = BJ.execute(msg, gameStarted, stack, curr, playerDeck, cpuDeck);
+    console.log("Game: "+gameStarted);
   }
   
   //Blackjack Hit
   else if (command === "h" && gameStarted === true) {
-    BJhit.execute(msg, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
+    gameStarted = BJhit.execute(msg, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
+
+    console.log("Player Deck: "+playerDeck)
   }
 
   //Blackjack Stay
