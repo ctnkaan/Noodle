@@ -206,13 +206,12 @@ client.on('message', (msg) => {
   //Blackjack Hit
   else if (command === "h" && gameStarted === true) {
     gameStarted = BJhit.execute(msg, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
-
     console.log("Player Deck: "+playerDeck)
   }
 
   //Blackjack Stay
   else if (command === "s" && gameStarted === true) {
-    BJStay.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
+    gameStarted = BJStay.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
   }
 
 });
