@@ -15,7 +15,9 @@ module.exports = {
         if (sum > 21) {
           msg.channel.send("Bust!");
           stack = [], playerDeck = [], cpuDeck = [], curr, sum = 0;
-          gameStarted = false;
+          return false;
+        } else {
+          return true;
         }
     },
    };
