@@ -35,6 +35,7 @@ const Resume = require('./commands/music/resume');
 const Stop = require('./commands/music/stop');
 const Loop = require('./commands/music/loop');
 const Progress = require('./commands/music/progress');
+const Translate = require("./commands/translate");
 
 
 //Blackjack variables
@@ -212,6 +213,10 @@ client.on('message', (msg) => {
   //Blackjack Stay
   else if (command === "s" && gameStarted === true) {
     gameStarted = BJStay.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
+  }
+
+  else if (command === "translate") {
+    Translate.execute(msg);
   }
 
 });
