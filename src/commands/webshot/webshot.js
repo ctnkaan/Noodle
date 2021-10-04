@@ -15,7 +15,6 @@ module.exports = {
            WSS.execute(msg);
          })
         } catch (err) {
-          msg.channel.send("There is already a caputed img. Please do !!s");
           console.log(err);
         }
     },

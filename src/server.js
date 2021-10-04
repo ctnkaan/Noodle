@@ -6,21 +6,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 const { Player } = require("discord-music-player");
-const player = new Player(client, {
-    leaveOnEnd: true,
-    leaveOnStop: true,
-    leaveOnEmpty: false,
-    timeout: 0,
-    volume: 150,
-    quality: 'high',
-});
-
-client.player = player;
-
-client.player.on('songAdd',  (message, queue, song) => 
-  message.channel.send(`**${song.name}** has been added to the queue!`)).on('songFirst',  (message, song) => 
-    message.channel.send(`**${song.name}** is now playing!`));
-
 
 //Imports
 const Rr = require("./commands/rr");
@@ -55,8 +40,25 @@ const Progress = require('./commands/music/progress');
 //Blackjack variables
 let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false;
 
-//RR
+//Russian Roulette variables
 let bullets = 6; 
+
+
+
+const player = new Player(client, {
+  leaveOnEnd: true,
+  leaveOnStop: true,
+  leaveOnEmpty: false,
+  timeout: 0,
+  volume: 150,
+  quality: 'high',
+});
+
+client.player = player;
+
+client.player.on('songAdd',  (message, queue, song) => 
+  message.channel.send(`**${song.name}** has been added to the queue!`)).on('songFirst',  (message, song) => 
+    message.channel.send(`**${song.name}** is now playing!`));
 
 
 
@@ -69,11 +71,9 @@ client.on('ready', () => {
 
 client.on('message', (msg) => {
 
-
   if (!msg.content.startsWith("-") || msg.author.bot) return;
   let args = msg.content.slice("-".length).split(' ');
   const command = args.shift().toLowerCase();
-
 
   //Play
   if (command === "p" || command === "play") {
