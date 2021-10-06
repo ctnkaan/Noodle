@@ -215,6 +215,7 @@ client.on('message', (msg) => {
     gameStarted = BJStay.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
   }
 
+  //Translate
   else if (command === "translate") {
     Translate.execute(msg);
   }
