@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ctnkaan/Noodle#readme",
   "dependencies": {
     "@discordjs/opus": "^0.4.0",
+    "bing-translate-api": "^2.2.1",
     "bitcoinex": "^0.2.2",
     "covid19-api": "^1.2.1",
     "discord-music-player": "^7.2.0",

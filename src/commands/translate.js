@@ -7,10 +7,10 @@ module.exports = {
 
         if (message.author.bot) return;
 
-        let args = message.content.replace("cm!translate ","");
+        let args = message.content.replace("-translate ","");
 
         translate(args, null, 'en', true).then(res => {
-            if (res.translation == 'cm!translate')
+            if (res.translation == '-translate')
                 message.channel.send("Please provide the text to translate");
             else if (res.translation == args) 
                 message.channel.send("The text is either already in English or I can't understand what language it is\nNote: I can't Understand languages such as Hindi or Japanese in Latin Alphabet.");
