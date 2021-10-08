@@ -3,7 +3,7 @@ const fs = require('fs');
 module.exports = {
     name: 'webshot-send',
     description: 'send captured img',
-    execute(msg) {
+    execute(msg :any) {
         try {
             msg.channel.send({
             files: [{
@@ -11,7 +11,7 @@ module.exports = {
               name: "img.png"
             }]
           }).then( () => {
-            fs.unlink('./img.png', (err) => {
+            fs.unlink('./img.png', (err: any) => {
               if (err) throw err;
               console.log('deleted');
             });

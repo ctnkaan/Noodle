@@ -1,5 +1,5 @@
 var webshot = require('webshot-node');
-const WSS = require("./webshot/webshot-send");
+const Wss = require("./webshot/webshot-send");
 
 module.exports = {
     name: 'covid',
@@ -11,7 +11,7 @@ module.exports = {
             if (err) throw err;
             console.log('Captured');
          }, () => {
-           WSS.execute(msg);
+           Wss.execute(msg);
          })
         } catch (err) {
           msg.channel.send("There is already a caputed img. Please do !!s");

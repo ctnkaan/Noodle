@@ -4,14 +4,14 @@ const WSS = require("./webshot-send");
 module.exports = {
     name: 'webshot',
     description: 'display img of a website',
-    execute(args, msg) {
+    execute(args :any, msg :any) {
       msg.channel.send("Capturing your Image...");
         args = args.toString()
         try {
-          webshot(args, 'img.png', (err) => {
+          webshot(args, 'img.png', (err: any) => {
             if (err) throw err;
             console.log('Captured');
-         }, (sus) => {
+         }, () => {
            WSS.execute(msg);
          })
         } catch (err) {
