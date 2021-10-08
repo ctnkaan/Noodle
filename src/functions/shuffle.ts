@@ -1,8 +1,8 @@
 module.exports = {
     name: 'shuffle',
     description: 'Shuffles given array',
-    execute(array) {
-        var currentIndex = array.length, temporaryValue, randomIndex;
+    execute(array :Array<number>) {
+        let currentIndex = array.length, temporaryValue, randomIndex;
 
         // While there remain elements to shuffle...
         while (0 !== currentIndex) {
