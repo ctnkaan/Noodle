@@ -1,7 +1,7 @@
 module.exports = {
     name: 'progress',
     description: 'show the progress of the current track',
-    execute (client, msg) {
+    execute (client: any, msg: any) {
         let progressBar = client.player.createProgressBar(msg, {
             size: 15,
             block: '=',

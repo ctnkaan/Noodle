@@ -1,7 +1,7 @@
 module.exports = {
     name: 'play',
     description: 'play a song',
-    async execute(client, message, args) {
+    async execute(client: any, message: any, args: any) {
 
       if(client.player.isPlaying(args)) {
         let song = await client.player.addToQueue(message, args.join(' '));

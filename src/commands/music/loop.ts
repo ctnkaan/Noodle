@@ -1,7 +1,7 @@
 module.exports = {
     name: 'loop',
     description: 'loop the music',
-    execute (client, msg) {
+    execute (client: any, msg: any) {
         let toggle = client.player.toggleLoop(msg);
     
         if(toggle === null)
