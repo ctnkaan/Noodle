@@ -39,7 +39,7 @@ const Translate = require("./commands/translate");
 
 
 //Blackjack variables
-let stack = [], playerDeck = [], cpuDeck = [], curr, cpuSum = 0, sum = 0, gameStarted = false;
+let stack :number[] = [], playerDeck :number[] = [], cpuDeck :number[] = [], curr :number, cpuSum = 0, sum = 0, gameStarted = false;
 
 //Russian Roulette variables
 let bullets = 6; 
@@ -57,8 +57,8 @@ const player = new Player(client, {
 
 client.player = player;
 
-client.player.on('songAdd',  (message, queue, song) => 
-  message.channel.send(`**${song.name}** has been added to the queue!`)).on('songFirst',  (message, song) => 
+client.player.on('songAdd',  (message :any, queue :any, song :any) => 
+  message.channel.send(`**${song.name}** has been added to the queue!`)).on('songFirst',  (message :any, song :any) => 
     message.channel.send(`**${song.name}** is now playing!`));
 
 
@@ -70,7 +70,7 @@ client.on('ready', () => {
 });
 
 
-client.on('message', (msg) => {
+client.on('message', (msg :any) => {
 
   if (!msg.content.startsWith("-") || msg.author.bot) return;
   let args = msg.content.slice("-".length).split(' ');
