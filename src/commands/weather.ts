@@ -4,7 +4,7 @@ var weather = require('openweather-apis');
 module.exports = {
     name: 'weather',
     description: 'display weather im given city',
-    execute(msg, args) {
+    execute(msg :any, args :string) {
 
         weather.setLang('en');
         weather.setCity(args);
@@ -13,7 +13,7 @@ module.exports = {
 
         weather.setAPPID(process.env.OPENWEATHERAPI_KEY);
 
-        weather.getAllWeather(function(err, JSONObj){
+        weather.getAllWeather(function(err :any, JSONObj :any) {
             console.log(JSONObj);
             
             if (err) {
