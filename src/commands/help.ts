@@ -1,8 +1,8 @@
 module.exports = {
     name: 'Help',
     description: 'displays all the commands',
-    execute(msg) {
-        msg.channel.send("Website: https://ctnkaan.github.io/noodle-site/"+
+    execute(msg :any) {
+        msg.channel.send("Repo: https://github.com/ctnkaan/Noodle"+
         "\n\n----------------------------COMMANDS----------------------------\n\n"+
 
         "-meme -->   Displays a dank meme\n\n"+

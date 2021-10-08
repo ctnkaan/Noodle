@@ -1,7 +1,7 @@
 module.exports = {
     name: 'Moderation',
     description: 'Ban and Kick commands for discord server',
-    execute(msg, command) {
+    execute(msg: any, command: any) {
 
         let user, member;
         switch (command) {
@@ -15,7 +15,7 @@ module.exports = {
               if (member) {
                 member.kick('kicking').then(() => {
                   msg.reply('This user kicked from the server');
-                }).catch(err => {
+                }).catch((err: any) => {
                   msg.reply('I am not able to kick that member')
                   console.log(err);
                 });
@@ -39,7 +39,7 @@ module.exports = {
                     ression: 'se ya'
                   }).then(() => {
                     msg.reply('This user banned from the server!');
-                  }).catch(err => {
+                  }).catch(() => {
                     msg.reply('I am not able to ban this member');
                   });
                 } else {
