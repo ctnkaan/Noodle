@@ -3,8 +3,8 @@ const bitcoinex = require('bitcoinex');
 module.exports = {
     name: 'btc',
     description: 'display current btc price',
-    execute(msg) {
-        bitcoinex.getPriceWith('bitstamp', 'usd', function(err, priceObject) {
+    execute(msg :any) {
+        bitcoinex.getPriceWith('bitstamp', 'usd', function(err: any, priceObject: { last: string; }) {
             if (err)
                 msg.channel.send("There was a Error");
             else 

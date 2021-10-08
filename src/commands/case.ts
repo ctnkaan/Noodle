@@ -1,9 +1,7 @@
 module.exports = {
     name: 'case',
     description: 'csgo case opening',
-    execute(msg) {
-
-        
+    execute(msg :any) {
 
         let luck = Math.floor(Math.random() * 300) + 1;
         console.log(luck);

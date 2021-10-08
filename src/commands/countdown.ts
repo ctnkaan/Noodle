@@ -1,21 +1,21 @@
 module.exports = {
     name: 'Countdown',
     description: 'Countdown from user input',
-    execute(msg, counta) {
+    execute(msg :any, input :any) {
 
-        if (!counta.length) {
+        if (!input.length) {
             return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
         }
-        if (counta < 0) {
+        if (input < 0) {
           return msg.channel.send(`Countdown must be above 0, ${msg.author}!`);
         }
       
-          msg.channel.send("Countdown started " + counta + " secs ")
+          msg.channel.send("Countdown started " + input + " secs ")
           
           const counter = setInterval(() => {
-            if (counta > 0) {
-              console.log(counta)
-              counta--
+            if (input > 0) {
+              console.log(input)
+              input--
             } else {
               msg.channel.send("Countdown is over")
               clearInterval(counter)

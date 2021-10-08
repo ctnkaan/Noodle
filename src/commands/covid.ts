@@ -4,13 +4,13 @@ const WSS = require("./webshot/webshot-send");
 module.exports = {
     name: 'covid',
     description: 'display img of a website',
-    execute(msg) {
+    execute(msg :any) {
       msg.channel.send("Getting data...");
         try {
-          webshot("https://covid19asi.saglik.gov.tr/", 'img.png', (err) => {
+          webshot("https://covid19asi.saglik.gov.tr/", 'img.png', (err: any) => {
             if (err) throw err;
             console.log('Captured');
-         }, (sus) => {
+         }, () => {
            WSS.execute(msg);
          })
         } catch (err) {
