@@ -1,7 +1,8 @@
 //<> with ❤️ by Çetin Kaan Taşkıngenç
 
 //Third Party
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
