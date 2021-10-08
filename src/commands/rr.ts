@@ -1,7 +1,7 @@
 module.exports = {
     name: 'Russian Rulatte',
     description: 'Russian rulatte game with 6 bullets',
-    execute(msg, bullets) {
+    execute(msg :any, bullets :number) {
 
         let a = Math.floor(Math.random() * bullets) + 1;
 

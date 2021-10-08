@@ -1,7 +1,7 @@
 module.exports = {
     name: 'Stats',
     description: 'displays some stats about the bot',
-    execute(msg, client) {
+    execute(msg :any, client :any) {
 
         let scount =  client.guilds.cache.size;
         let usercount = client.users.cache.size;
