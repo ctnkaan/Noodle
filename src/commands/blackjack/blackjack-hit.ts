@@ -1,7 +1,7 @@
 module.exports = {
     name: 'blackjack-hit',
     description: 'hit',
-    execute(msg, curr, playerDeck, cpuDeck, stack, gameStarted, sum) {
+    execute(msg: any, curr: any, playerDeck: number[], cpuDeck: number[], stack: number[], gameStarted: boolean, sum: number) {
         curr = stack.pop();
         console.log(curr);
         playerDeck.push(curr);

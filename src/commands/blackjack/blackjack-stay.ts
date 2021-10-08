@@ -1,7 +1,7 @@
 module.exports = {
     name: 'Blackjack-Stay',
     description: 'stay command for blackjack',
-    execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted) {
+    execute(msg: any, cpuSum: string | number, cpuDeck: any[], sum: string | number, stack: any[], playerDeck: string | any[], curr: any, gameStarted: boolean) {
         msg.channel.send("CPU has "+ cpuDeck[0] + " and "+ cpuDeck[1]);
 
         //CPU deck count

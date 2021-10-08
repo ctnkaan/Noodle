@@ -4,7 +4,7 @@ const Shuffle = require('../../functions/shuffle');
 module.exports = {
     name: 'Blackjack',
     description: 'Start a game of Blackjack',
-    execute(msg, gameStarted, stack, curr, playerDeck, cpuDeck) {
+    execute(msg: any, gameStarted: boolean, stack: number[], curr: any, playerDeck: number[], cpuDeck: number[]) {
 
         //build the deck of cards
         for (let i = 0; i < 13; i++) {
