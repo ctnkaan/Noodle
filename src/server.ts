@@ -163,9 +163,11 @@ client.on('message', (msg :any) => {
   }
 
   //Moderation
+  /*
   else if (command === "kick" || command === "ban") {
     Moderation.execute(msg, command);
   }
+  */
 
   //CSGO Case
   else if (command === "case") {
