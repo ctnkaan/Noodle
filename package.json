@@ -32,7 +32,8 @@
     "memejs": "^1.2.3",
     "node-osu": "^2.2.1",
     "openweather-apis": "^4.4.1",
-    "webshot-node": "^0.18.2"
+    "webshot-node": "^0.18.2",
+    "yarn-upgrade-all": "^0.6.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
