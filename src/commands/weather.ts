@@ -1,28 +1,31 @@
+var weather = require("openweather-apis");
 
-var weather = require('openweather-apis');
+export = {
+  name: "weather",
+  description: "display weather im given city",
+  execute(msg: any, args: string) {
+    weather.setLang("en");
+    weather.setCity(args);
 
-module.exports = {
-    name: 'weather',
-    description: 'display weather im given city',
-    execute(msg :any, args :string) {
+    weather.setUnits("metric");
 
-        weather.setLang('en');
-        weather.setCity(args);
+    weather.setAPPID(process.env.OPENWEATHERAPI_KEY);
 
-        weather.setUnits('metric');
+    weather.getAllWeather(function (err: any, JSONObj: any) {
+      console.log(JSONObj);
 
-        weather.setAPPID(process.env.OPENWEATHERAPI_KEY);
-
-        weather.getAllWeather(function(err :any, JSONObj :any) {
-            console.log(JSONObj);
-            
-            if (err) {
-                msg.channel.send("Unknown city");
-            } else {
-                msg.channel.send("The weather in "+args+" is "+JSONObj.main.temp+" with "+JSONObj.weather[0].description);
-            }
-            
-        });
-
-    },
+      if (err) {
+        msg.channel.send("Unknown city");
+      } else {
+        msg.channel.send(
+          "The weather in " +
+            args +
+            " is " +
+            JSONObj.main.temp +
+            " with " +
+            JSONObj.weather[0].description
+        );
+      }
+    });
+  },
 };

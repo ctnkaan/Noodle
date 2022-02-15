@@ -1,51 +1,52 @@
 //<> with ❤️ by Çetin Kaan Taşkıngenç
 
 //Third Party
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-const Discord = require('discord.js');
-const client = new Discord.Client();
+import { Client } from "discord.js";
+import { Player } from "discord-music-player";
 
-const { Player } = require("discord-music-player");
-
-//Imports
-const Rr = require("./commands/rr");
-const Stats = require("./commands/stats");
-const Help = require("./commands/help");
-const Rps = require("./commands/rps");
-const Countdown = require("./commands/countdown");
-const Roll = require('./commands/roll');
-const Reddit = require('./commands/reddit');
-const Meme = require('./commands/meme');
-const Moderation = require('./commands/moderation');
-const Case = require('./commands/case');
-const WeatherFile = require('./commands/weather');
-const Btc = require('./commands/btc');
-const WS = require("./commands/webshot/webshot");
-const OSU = require("./commands/osu");
-const Covid = require("./commands/covid");
-const BJ = require("./commands/blackjack/blackjack");
-const BJhit = require("./commands/blackjack/blackjack-hit");
-const BJStay = require("./commands/blackjack/blackjack-stay");
-const Play = require('./commands/music/play');
-const Skip = require('./commands/music/skip');
-const Clear = require('./commands/music/clear');
-const Queue = require('./commands/music/queue');
-const Pause = require('./commands/music/pause');
-const Resume = require('./commands/music/resume');
-const Stop = require('./commands/music/stop');
-const Loop = require('./commands/music/loop');
-const Progress = require('./commands/music/progress');
-const Translate = require("./commands/translate");
-
+//Commands
+import Rr from "./commands/rr";
+import Stats from "./commands/stats";
+import Help from "./commands/help";
+import Rps from "./commands/rps";
+import Countdown from "./commands/countdown";
+import Roll from "./commands/roll";
+import Reddit from "./commands/reddit";
+import Meme from "./commands/meme";
+import Moderation from "./commands/moderation";
+import Case from "./commands/case";
+import WeatherFile from "./commands/weather";
+import Btc from "./commands/btc";
+import WS from "./commands/webshot/webshot";
+import OSU from "./commands/osu";
+import Covid from "./commands/covid";
+import BJ from "./commands/blackjack/blackjack";
+import BJhit from "./commands/blackjack/blackjack-hit";
+import BJStay from "./commands/blackjack/blackjack-stay";
+import Play from "./commands/music/play";
+import Skip from "./commands/music/skip";
+import Clear from "./commands/music/clear";
+import Queue from "./commands/music/queue";
+import Pause from "./commands/music/pause";
+import Resume from "./commands/music/resume";
+import Stop from "./commands/music/stop";
+import Loop from "./commands/music/loop";
+import Progress from "./commands/music/progress";
+import Translate from "./commands/translate";
 
 //Blackjack variables
-let stack :number[] = [], playerDeck :number[] = [], cpuDeck :number[] = [], curr :number, cpuSum = 0, sum = 0, gameStarted = false;
+let stack: number[] = [],
+  playerDeck: number[] = [],
+  cpuDeck: number[] = [],
+  curr: number,
+  cpuSum = 0,
+  sum = 0,
+  gameStarted = false;
 
 //Russian Roulette variables
-let bullets = 6; 
-
-
+let bullets: number = 6;
 
 const player = new Player(client, {
   leaveOnEnd: true,
@@ -53,28 +54,28 @@ const player = new Player(client, {
   leaveOnEmpty: false,
   timeout: 0,
   volume: 150,
-  quality: 'high',
+  quality: "high",
 });
 
 client.player = player;
 
-client.player.on('songAdd',  (message :any, queue :any, song :any) => 
-  message.channel.send(`**${song.name}** has been added to the queue!`)).on('songFirst',  (message :any, song :any) => 
-    message.channel.send(`**${song.name}** is now playing!`));
+client.player
+  .on("songAdd", (message: any, queue: any, song: any) =>
+    message.channel.send(`**${song.name}** has been added to the queue!`)
+  )
+  .on("songFirst", (message: any, song: any) =>
+    message.channel.send(`**${song.name}** is now playing!`)
+  );
 
-
-
-client.on('ready', () => {
+client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   client.user.setActivity("-help");
 });
 
-
-client.on('message', (msg :any) => {
-
+client.on("message", (msg: any) => {
   if (!msg.content.startsWith("-") || msg.author.bot) return;
-  let args = msg.content.slice("-".length).split(' ');
+  let args = msg.content.slice("-".length).split(" ");
   const command = args.shift().toLowerCase();
 
   //Play
@@ -83,42 +84,42 @@ client.on('message', (msg :any) => {
   }
 
   //Skip
-  else if (command === 'skip'){
+  else if (command === "skip") {
     Skip.execute(client, msg);
   }
 
   //Clear
-  else if (command === 'clear'){
+  else if (command === "clear") {
     Clear.execute(client, msg);
   }
 
   //Queue
-  else if (command === 'queue' || command === 'q'){
+  else if (command === "queue" || command === "q") {
     Queue.execute(client, msg);
   }
 
   //Pause
-  else if (command === 'pause'){
+  else if (command === "pause") {
     Pause.execute(client, msg);
   }
 
   //Resume
-  else if (command === 'resume'){
+  else if (command === "resume") {
     Resume.execute(client, msg);
   }
 
   //Stop
-  else if(command === 'stop'){
+  else if (command === "stop") {
     Stop.execute(client, msg);
   }
 
   //Loop
-  else if (command === 'loop') {
+  else if (command === "loop") {
     Loop.execute(client, msg);
   }
 
   //Progress
-  else if (command === 'progress' || command === 'prog'){
+  else if (command === "progress" || command === "prog") {
     Progress.execute(client, msg);
   }
 
@@ -133,12 +134,12 @@ client.on('message', (msg :any) => {
   }
 
   //Help
-  else if (command === 'help') {
+  else if (command === "help") {
     Help.execute(msg);
   }
 
   //Rock paper scissors
-  else if (command === 'rps') {
+  else if (command === "rps") {
     Rps.execute(msg);
   }
 
@@ -148,17 +149,17 @@ client.on('message', (msg :any) => {
   }
 
   //Roll
-  else if (command === 'roll') {
+  else if (command === "roll") {
     Roll.execute(msg, args);
   }
 
   //Reddit
-  else if (command === 'reddit') {
+  else if (command === "reddit") {
     Reddit.execute(msg, args);
   }
 
   //Meme
-  else if (command === "meme") { 
+  else if (command === "meme") {
     Meme.execute(msg);
   }
 
@@ -203,26 +204,49 @@ client.on('message', (msg :any) => {
 
   //Blackjack Start
   else if (command === "bj") {
-    gameStarted = BJ.execute(msg, gameStarted, stack, curr, playerDeck, cpuDeck);
-    console.log("Game: "+gameStarted);
+    gameStarted = BJ.execute(
+      msg,
+      gameStarted,
+      stack,
+      curr,
+      playerDeck,
+      cpuDeck
+    );
+    console.log("Game: " + gameStarted);
   }
-  
+
   //Blackjack Hit
   else if (command === "h" && gameStarted === true) {
-    gameStarted = BJhit.execute(msg, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
-    console.log("Player Deck: "+playerDeck)
+    gameStarted = BJhit.execute(
+      msg,
+      curr,
+      playerDeck,
+      cpuDeck,
+      stack,
+      gameStarted,
+      sum
+    );
+    console.log("Player Deck: " + playerDeck);
   }
 
   //Blackjack Stay
   else if (command === "s" && gameStarted === true) {
-    gameStarted = BJStay.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
+    gameStarted = BJStay.execute(
+      msg,
+      cpuSum,
+      cpuDeck,
+      sum,
+      stack,
+      playerDeck,
+      curr,
+      gameStarted
+    );
   }
 
   //Translate
   else if (command === "translate") {
     Translate.execute(msg);
   }
-
 });
 
 client.login(process.env.DISCORD_KEY);
