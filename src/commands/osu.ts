@@ -1,3 +1,5 @@
+import { MessageType } from "../types/message";
+
 const osu = require("node-osu");
 
 const osuApi = new osu.Api(process.env.OSU_KEY, {
@@ -10,7 +12,7 @@ const osuApi = new osu.Api(process.env.OSU_KEY, {
 export = {
   name: "osu",
   description: "Osu api",
-  execute(msg: any, args: any) {
+  execute(message: MessageType, args: string) {
     osuApi
       .getUser({ u: args })
       .then(
@@ -22,7 +24,7 @@ export = {
           secondsPlayed: string;
           id: string;
         }) => {
-          msg.channel.send(
+          message.channel.send(
             ">>> ```Username: " +
               user.name +
               "\nCountry: " +

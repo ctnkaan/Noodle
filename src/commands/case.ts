@@ -1,7 +1,9 @@
+import { MessageType } from "../types/message";
+
 export = {
   name: "case",
   description: "csgo case opening",
-  execute(msg: any) {
+  execute(msg: MessageType) {
     let luck = Math.floor(Math.random() * 300) + 1;
     console.log(luck);
 
