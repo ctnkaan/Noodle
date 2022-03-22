@@ -4,37 +4,22 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { Client } from "discord.js";
-import { Player } from "discord-music-player";
 
 //Commands
-import Rr from "./commands/rr";
-import Stats from "./commands/stats";
-import Help from "./commands/help";
-import Rps from "./commands/rps";
-import Countdown from "./commands/countdown";
-import Roll from "./commands/roll";
-import Reddit from "./commands/reddit";
-import Meme from "./commands/meme";
-import Moderation from "./commands/moderation";
-import Case from "./commands/case";
-import WeatherFile from "./commands/weather";
-import Btc from "./commands/btc";
-import WS from "./commands/webshot/webshot";
-import OSU from "./commands/osu";
-import Covid from "./commands/covid";
-import BJ from "./commands/blackjack/blackjack";
-import BJhit from "./commands/blackjack/blackjack-hit";
-import BJStay from "./commands/blackjack/blackjack-stay";
-import Play from "./commands/music/play";
-import Skip from "./commands/music/skip";
-import Clear from "./commands/music/clear";
-import Queue from "./commands/music/queue";
-import Pause from "./commands/music/pause";
-import Resume from "./commands/music/resume";
-import Stop from "./commands/music/stop";
-import Loop from "./commands/music/loop";
-import Progress from "./commands/music/progress";
-import Translate from "./commands/translate";
+import commandMap from "./commandMap";
+
+const prefix = "!p";
+
+const client = new Client({
+  partials: ["MESSAGE", "CHANNEL", "REACTION"],
+  intents: [
+    "DIRECT_MESSAGES",
+    "DIRECT_MESSAGE_REACTIONS",
+    "GUILD_MESSAGES",
+    "GUILD_MESSAGE_REACTIONS",
+    "GUILDS",
+  ],
+});
 
 //Blackjack variables
 let stack: number[] = [],
@@ -48,32 +33,15 @@ let stack: number[] = [],
 //Russian Roulette variables
 let bullets: number = 6;
 
-const player = new Player(client, {
-  leaveOnEnd: true,
-  leaveOnStop: true,
-  leaveOnEmpty: false,
-  timeout: 0,
-  volume: 150,
-  quality: "high",
-});
-
-client.player = player;
-
-client.player
-  .on("songAdd", (message: any, queue: any, song: any) =>
-    message.channel.send(`**${song.name}** has been added to the queue!`)
-  )
-  .on("songFirst", (message: any, song: any) =>
-    message.channel.send(`**${song.name}** is now playing!`)
-  );
-
+//When the bot is connected
 client.on("ready", () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+  if (!client.user) return; // to appease typescript. In reality, this will never happen
 
-  client.user.setActivity("-help");
+  console.log(`I am ready! Logged in as ${client.user.tag}`);
+  client.user.setActivity(`${prefix} help`);
 });
 
-client.on("message", (msg: any) => {
+client.on("message", (msg: ) => {
   if (!msg.content.startsWith("-") || msg.author.bot) return;
   let args = msg.content.slice("-".length).split(" ");
   const command = args.shift().toLowerCase();
