@@ -4,6 +4,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { Client } from "discord.js";
+import { MessageType } from "./types/message";
+
 
 //Commands
 import commandMap from "./commandMap";
@@ -43,15 +45,15 @@ client.on("ready", () => {
   client.user.setActivity(`${prefix} help`);
 });
 
-client.on("message", (msg: any) => {
+client.on("message", (message: MessageType) => {
 
     // ignore bots
-    if (msg.author.bot) return;
+    if (message.author.bot) return;
 
     //If the message does not start with the prefix return
-    if (!msg.content.startsWith(prefix)) return;
+    if (!message.content.startsWith(prefix)) return;
 
-    const args: string[] = msg.content
+    const args: string[] = message.content
     .slice(prefix.length)
     .trim()
     .split(/ +/g);
@@ -65,24 +67,24 @@ client.on("message", (msg: any) => {
       
     //Blackjack Start
     if (currCommand === "blackjack")
-      gameStarted = currCommand.execute(msg, gameStarted, stack, curr, playerDeck, cpuDeck);
+      gameStarted = currCommand.execute(message, gameStarted, stack, curr, playerDeck, cpuDeck);
 
     //Blackjack Hit
     else if (currCommand === "h" && gameStarted === true)
-      gameStarted = currCommand.execute(msg, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
+      gameStarted = currCommand.execute(message, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
 
     //Blackjack Stay
     else if (currCommand === "s" && gameStarted === true)
-      gameStarted = currCommand.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
+      gameStarted = currCommand.execute(message, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
 
     else if (currCommand == "rr")
-      currCommand.execute(msg, bullets);
+      currCommand.execute(message, bullets);
 
     //If the currCommand is not undefined
     else if (currCommand)
-      currCommand.execute(msg, args);
+      currCommand.execute(message, args);
     else
-      msg.channel.send(`Command not found! Type ${prefix} help to see all commands`);
+      message.channel.send(`Command not found! Type ${prefix} help to see all commands`);
   
 });
 

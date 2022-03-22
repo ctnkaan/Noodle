@@ -1,6 +1,5 @@
 //Commands
 import Rr from "./commands/rr";
-import Stats from "./commands/stats";
 import Help from "./commands/help";
 import Rps from "./commands/rps";
 import Countdown from "./commands/countdown";
@@ -21,7 +20,6 @@ import Translate from "./commands/translate";
 const commandMap = new Map();
 
 commandMap.set("rr", Rr);
-commandMap.set("stats", Stats);
 commandMap.set("help", Help);
 commandMap.set("rps", Rps);
 commandMap.set("countdown", Countdown);
