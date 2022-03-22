@@ -2,10 +2,9 @@ FROM node
 
 WORKDIR /app
 
-COPY package.json ./
+COPY . /app
 
 RUN yarn install
 
-COPY . .
 
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]

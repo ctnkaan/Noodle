@@ -1,17 +1,39 @@
-const {meme} = require('memejs');
+import { MessageEmbed } from "discord.js";
+import { meme } from "memejs";
+import { MessageType } from "../types/message";
+import { MemeType } from "../types/meme";
 
-module.exports = {
-    name: 'Reddit',
-    description: 'Display post from given subreddit',
-    execute(msg :any, args :any) {
-        if (!args.length) {
-            return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
-          } else {
-            meme(''+args, function(err: any, data: { title: any; url: any; }) {
-              if (err) return msg.channel.send("Unknown subreddit");
-              msg.channel.send(data.title);
-              msg.channel.send(data.url);
-            });
-          }
-    },
-   };
+export = {
+  name: "Reddit",
+  description: "Display post from given subreddit",
+  execute(message: MessageType, args: string) {
+    meme(args)
+    .then((data: MemeType) => {
+        const msg = new MessageEmbed()
+            .setColor("#c7651a")
+            .setTitle(data.title)
+            .setImage(data.url)
+            .setTimestamp();
+
+        message.channel.send({ embeds: [msg] });
+    }) // Get the JSON output
+    .catch((e) => {
+        console.log(e);
+        meme(args)
+            .then((data) => {
+                const msg = new MessageEmbed()
+                    .setColor("#c7651a")
+                    .setTitle(data.title)
+                    .setImage(data.url)
+                    .setTimestamp();
+
+                message.channel.send({ embeds: [msg] });
+            })
+            .catch((e) =>
+                message.channel.send(
+                    "Sorry I could not find any memes. Would you like to try again?"
+                )
+            );
+    }); // Handle any errors
+  },
+};

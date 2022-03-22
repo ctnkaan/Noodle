@@ -1,13 +1,39 @@
-const {meme :any} = require('memejs');
+import { MessageEmbed } from "discord.js";
+import { meme } from "memejs";
+import { MessageType } from "../types/message";
+import { MemeType } from "../types/meme";
 
-module.exports = {
-    name: 'Meme',
-    description: 'Like reddit but for dankmemes and easier to write',
-    execute(msg :any) {
-        meme('dankmemes', function(err: any, data: { title: any; url: any; }) {
-            if (err) return msg.channel.send(err);
-            msg.channel.send(data.title);
-            msg.channel.send(data.url);
-          });
-    },
+export = {
+    name: "meme",
+    description: "Generates a meme",
+    execute(message: MessageType, args: string) {
+        meme("programmerhumor")
+            .then((data: MemeType) => {
+                const msg = new MessageEmbed()
+                    .setColor("#c7651a")
+                    .setTitle(data.title)
+                    .setImage(data.url)
+                    .setTimestamp();
+
+                message.channel.send({ embeds: [msg] });
+            }) // Get the JSON output
+            .catch((e) => {
+                console.log(e);
+                meme("programmerhumor")
+                    .then((data) => {
+                        const msg = new MessageEmbed()
+                            .setColor("#c7651a")
+                            .setTitle(data.title)
+                            .setImage(data.url)
+                            .setTimestamp();
+
+                        message.channel.send({ embeds: [msg] });
+                    })
+                    .catch((e) =>
+                        message.channel.send(
+                            "Sorry I could not find any memes. Would you like to try again?"
+                        )
+                    );
+            }); // Handle any errors
+    }
 };

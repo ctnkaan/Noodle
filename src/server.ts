@@ -1,228 +1,91 @@
 //<> with ❤️ by Çetin Kaan Taşkıngenç
 
 //Third Party
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-const Discord = require('discord.js');
-const client = new Discord.Client();
+import { Client } from "discord.js";
+import { MessageType } from "./types/message";
 
-const { Player } = require("discord-music-player");
 
-//Imports
-const Rr = require("./commands/rr");
-const Stats = require("./commands/stats");
-const Help = require("./commands/help");
-const Rps = require("./commands/rps");
-const Countdown = require("./commands/countdown");
-const Roll = require('./commands/roll');
-const Reddit = require('./commands/reddit');
-const Meme = require('./commands/meme');
-const Moderation = require('./commands/moderation');
-const Case = require('./commands/case');
-const WeatherFile = require('./commands/weather');
-const Btc = require('./commands/btc');
-const WS = require("./commands/webshot/webshot");
-const OSU = require("./commands/osu");
-const Covid = require("./commands/covid");
-const BJ = require("./commands/blackjack/blackjack");
-const BJhit = require("./commands/blackjack/blackjack-hit");
-const BJStay = require("./commands/blackjack/blackjack-stay");
-const Play = require('./commands/music/play');
-const Skip = require('./commands/music/skip');
-const Clear = require('./commands/music/clear');
-const Queue = require('./commands/music/queue');
-const Pause = require('./commands/music/pause');
-const Resume = require('./commands/music/resume');
-const Stop = require('./commands/music/stop');
-const Loop = require('./commands/music/loop');
-const Progress = require('./commands/music/progress');
-const Translate = require("./commands/translate");
+//Commands
+import commandMap from "./commandMap";
 
+const prefix = "!";
+
+const client = new Client({
+  partials: ["MESSAGE", "CHANNEL", "REACTION"],
+  intents: [
+    "DIRECT_MESSAGES",
+    "DIRECT_MESSAGE_REACTIONS",
+    "GUILD_MESSAGES",
+    "GUILD_MESSAGE_REACTIONS",
+    "GUILDS",
+  ],
+});
 
 //Blackjack variables
-let stack :number[] = [], playerDeck :number[] = [], cpuDeck :number[] = [], curr :number, cpuSum = 0, sum = 0, gameStarted = false;
+let stack: number[] = [],
+  playerDeck: number[] = [],
+  cpuDeck: number[] = [],
+  curr: number = 0,
+  cpuSum: number = 0,
+  sum: number = 0,
+  gameStarted: boolean = false;
 
 //Russian Roulette variables
-let bullets = 6; 
+let bullets: number = 6;
 
 
 
-const player = new Player(client, {
-  leaveOnEnd: true,
-  leaveOnStop: true,
-  leaveOnEmpty: false,
-  timeout: 0,
-  volume: 150,
-  quality: 'high',
+//When the bot is connected
+client.on("ready", () => {
+  if (!client.user) return; // to appease typescript. In reality, this will never happen
+
+  console.log(`I am ready! Logged in as ${client.user.tag}`);
+  client.user.setActivity(`${prefix} help`);
 });
 
-client.player = player;
+client.on("message", (message: MessageType) => {
 
-client.player.on('songAdd',  (message :any, queue :any, song :any) => 
-  message.channel.send(`**${song.name}** has been added to the queue!`)).on('songFirst',  (message :any, song :any) => 
-    message.channel.send(`**${song.name}** is now playing!`));
+    // ignore bots
+    if (message.author.bot) return;
+
+    //If the message does not start with the prefix return
+    if (!message.content.startsWith(prefix)) return;
+
+    const args: string[] = message.content
+    .slice(prefix.length)
+    .trim()
+    .split(/ +/g);
+
+    const command: string = args.shift()!.toLowerCase();
 
 
+    //Check if the command exists in the hashmap. It returns undefined if it doesn't exist
+    const currCommand = commandMap.get(command);
 
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+      
+    //Blackjack Start
+    if (currCommand === "blackjack")
+      gameStarted = currCommand.execute(message, gameStarted, stack, curr, playerDeck, cpuDeck);
 
-  client.user.setActivity("-help");
-});
+    //Blackjack Hit
+    else if (currCommand === "h" && gameStarted === true)
+      gameStarted = currCommand.execute(message, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
 
+    //Blackjack Stay
+    else if (currCommand === "s" && gameStarted === true)
+      gameStarted = currCommand.execute(message, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
 
-client.on('message', (msg :any) => {
+    else if (currCommand == "rr")
+      currCommand.execute(message, bullets);
 
-  if (!msg.content.startsWith("-") || msg.author.bot) return;
-  let args = msg.content.slice("-".length).split(' ');
-  const command = args.shift().toLowerCase();
-
-  //Play
-  if (command === "p" || command === "play") {
-    Play.execute(client, msg, args);
-  }
-
-  //Skip
-  else if (command === 'skip'){
-    Skip.execute(client, msg);
-  }
-
-  //Clear
-  else if (command === 'clear'){
-    Clear.execute(client, msg);
-  }
-
-  //Queue
-  else if (command === 'queue' || command === 'q'){
-    Queue.execute(client, msg);
-  }
-
-  //Pause
-  else if (command === 'pause'){
-    Pause.execute(client, msg);
-  }
-
-  //Resume
-  else if (command === 'resume'){
-    Resume.execute(client, msg);
-  }
-
-  //Stop
-  else if(command === 'stop'){
-    Stop.execute(client, msg);
-  }
-
-  //Loop
-  else if (command === 'loop') {
-    Loop.execute(client, msg);
-  }
-
-  //Progress
-  else if (command === 'progress' || command === 'prog'){
-    Progress.execute(client, msg);
-  }
-
-  //Russian Rulatte
-  else if (command === "rr") {
-    bullets = Rr.execute(msg, bullets);
-  }
-
-  //Stats
-  else if (command === "stats") {
-    Stats.execute(msg, client);
-  }
-
-  //Help
-  else if (command === 'help') {
-    Help.execute(msg);
-  }
-
-  //Rock paper scissors
-  else if (command === 'rps') {
-    Rps.execute(msg);
-  }
-
-  //Countdown
-  else if (command === "countdown") {
-    Countdown.execute(msg, args);
-  }
-
-  //Roll
-  else if (command === 'roll') {
-    Roll.execute(msg, args);
-  }
-
-  //Reddit
-  else if (command === 'reddit') {
-    Reddit.execute(msg, args);
-  }
-
-  //Meme
-  else if (command === "meme") { 
-    Meme.execute(msg);
-  }
-
-  //Moderation
-  /*
-  else if (command === "kick" || command === "ban") {
-    Moderation.execute(msg, command);
-  }
-  */
-
-  //CSGO Case
-  else if (command === "case") {
-    Case.execute(msg);
-  }
-
-  //Weather
-  else if (command === "weather") {
-    msg.channel.send("Sorry the weather command is currently not working :(");
-    //WeatherFile.execute(msg, args);
-  }
-
-  //Bitcoin
-  else if (command === "btc" || command === "bitcoin") {
-    Btc.execute(msg);
-  }
-
-  //Webshot
-  else if (command === "ws") {
-    args = args.toString();
-    WS.execute(args, msg);
-  }
-
-  //Covid
-  else if (command === "covid") {
-    Covid.execute(msg);
-  }
-
-  //Osu
-  else if (command === "osu") {
-    OSU.execute(msg, args);
-  }
-
-  //Blackjack Start
-  else if (command === "bj") {
-    gameStarted = BJ.execute(msg, gameStarted, stack, curr, playerDeck, cpuDeck);
-    console.log("Game: "+gameStarted);
-  }
+    //If the currCommand is not undefined
+    else if (currCommand)
+      currCommand.execute(message, args);
+    else
+      message.channel.send(`Command not found! Type ${prefix} help to see all commands`);
   
-  //Blackjack Hit
-  else if (command === "h" && gameStarted === true) {
-    gameStarted = BJhit.execute(msg, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
-    console.log("Player Deck: "+playerDeck)
-  }
-
-  //Blackjack Stay
-  else if (command === "s" && gameStarted === true) {
-    gameStarted = BJStay.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
-  }
-
-  //Translate
-  else if (command === "translate") {
-    Translate.execute(msg);
-  }
-
 });
 
 client.login(process.env.DISCORD_KEY);

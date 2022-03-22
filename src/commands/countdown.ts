@@ -1,25 +1,32 @@
-module.exports = {
-    name: 'Countdown',
-    description: 'Countdown from user input',
-    execute(msg :any, input :any) {
+import { MessageType } from "../types/message";
 
-        if (!input.length) {
-            return msg.channel.send(`You didn't provide any arguments, ${msg.author}!`);
-        }
-        if (input < 0) {
-          return msg.channel.send(`Countdown must be above 0, ${msg.author}!`);
-        }
-      
-          msg.channel.send("Countdown started " + input + " secs ")
-          
-          const counter = setInterval(() => {
-            if (input > 0) {
-              console.log(input)
-              input--
-            } else {
-              msg.channel.send("Countdown is over")
-              clearInterval(counter)
-            }
-          }, 1000)
-    },
-   };
+export = {
+  name: "Countdown",
+  description: "Countdown from user args",
+  execute(message: MessageType, args: string) {
+    if (!args.length) {
+      return message.channel.send(
+        `You didn't provide any arguments, ${message.author}!`
+      );
+    }
+
+    //make args an number
+    let argsInt = parseInt(args);
+
+    if (argsInt < 0) {
+      return message.channel.send(`Countdown must be above 0, ${message.author}!`);
+    }
+
+    message.channel.send("Countdown started " + argsInt + " secs ");
+
+    const counter = setInterval(() => {
+      if (argsInt > 0) {
+        console.log(argsInt);
+        argsInt--;
+      } else {
+        message.channel.send("Countdown is over");
+        clearInterval(counter);
+      }
+    }, 1000);
+  },
+};
