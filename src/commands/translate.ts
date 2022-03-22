@@ -1,9 +1,11 @@
+import { MessageType } from "../types/message";
+
 const { translate } = require("bing-translate-api");
 
 export = {
   name: "Translate",
   desc: "Translate a message to English",
-  async execute(message: any) {
+  async execute(message: MessageType) {
     if (message.author.bot) return;
 
     let args = message.content.replace("-translate ", "");

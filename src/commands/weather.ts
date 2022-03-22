@@ -1,9 +1,11 @@
+import { MessageType } from "../types/message";
+
 var weather = require("openweather-apis");
 
 export = {
   name: "weather",
   description: "display weather im given city",
-  execute(msg: any, args: string) {
+  execute(msg: MessageType, args: string) {
     weather.setLang("en");
     weather.setCity(args);
 

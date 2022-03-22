@@ -1,7 +1,9 @@
+import { MessageType } from "../types/message";
+
 export = {
   name: "Roll",
   description: "roll between 1 and user input",
-  execute(msg: any, args: any) {
+  execute(msg: MessageType, args: any) {
     if (!args.length) {
       return msg.channel.send(
         `You didn't provide any arguments, ${msg.author}!`

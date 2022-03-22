@@ -1,7 +1,9 @@
+import { MessageType } from "../types/message";
+
 export = {
   name: "Russian Rulatte",
   description: "Russian rulatte game with 6 bullets",
-  execute(msg: any, bullets: number) {
+  execute(msg: MessageType, bullets: number) {
     let a = Math.floor(Math.random() * bullets) + 1;
 
     if (a !== 1) {

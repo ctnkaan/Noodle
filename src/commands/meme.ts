@@ -6,7 +6,7 @@ import { MemeType } from "../types/meme";
 export = {
     name: "meme",
     description: "Generates a meme",
-    callback(message: MessageType, args: string) {
+    execute(message: MessageType, args: string) {
         meme("programmerhumor")
             .then((data: MemeType) => {
                 const msg = new MessageEmbed()
