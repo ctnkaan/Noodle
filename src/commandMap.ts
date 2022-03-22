@@ -24,7 +24,6 @@ commandMap.set("reddit", Reddit);
 commandMap.set("meme", Meme);
 commandMap.set("case", Case);
 commandMap.set("weather", WeatherFile);
-commandMap.set("btc", Btc);
 commandMap.set("osu", OSU);
 commandMap.set("blackjack", BJ);
 commandMap.set("hit", BJhit);
