@@ -23,16 +23,13 @@
     "@discordjs/opus": "^0.7.0",
     "bing-translate-api": "^2.2.1",
     "bitcoinex": "^0.2.2",
-    "covid19-api": "^1.2.1",
     "discord-music-player": "^8.3.1",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
-    "ffmpeg": "^0.0.4",
     "ffmpeg-static": "^4.4.1",
     "memejs": "^2.0.1",
     "node-osu": "^2.2.1",
-    "openweather-apis": "^4.4.2",
-    "webshot-node": "^0.18.2"
+    "openweather-apis": "^4.4.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
