@@ -7,7 +7,6 @@ import Reddit from "./commands/reddit";
 import Meme from "./commands/meme";
 import Case from "./commands/case";
 import WeatherFile from "./commands/weather";
-import Btc from "./commands/btc";
 import OSU from "./commands/osu";
 import BJ from "./commands/blackjack/blackjack";
 import BJhit from "./commands/blackjack/blackjack-hit";

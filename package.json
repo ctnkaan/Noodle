@@ -22,7 +22,6 @@
   "dependencies": {
     "@discordjs/opus": "^0.7.0",
     "bing-translate-api": "^2.4.0",
-    "bitcoinex": "^0.2.2",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "ffmpeg-static": "^5.0.0",
