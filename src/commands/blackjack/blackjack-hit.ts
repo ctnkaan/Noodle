@@ -2,16 +2,13 @@ export = {
   name: "blackjack-hit",
   description: "hit",
   execute(
-    msg: any,
-    curr: any,
-    playerDeck: number[],
-    cpuDeck: number[],
-    stack: number[],
-    gameStarted: boolean,
-    sum: number
+    msg: any, args: string, curr: number, stack: number[] , playerDeck: number[], cpuDeck: number[], cpuSum: number, sum: number, gameStarted: boolean
   ) {
-    curr = stack.pop();
-    console.log(curr);
+
+    if (stack.pop() != undefined) {
+      curr = stack.pop() as number;
+    }
+
     playerDeck.push(curr);
 
     sum = 0;

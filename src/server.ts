@@ -8,7 +8,7 @@ import { Client } from "discord.js";
 //Commands
 import commandMap from "./commandMap";
 
-const prefix = "!p";
+const prefix = "!";
 
 const client = new Client({
   partials: ["MESSAGE", "CHANNEL", "REACTION"],
@@ -25,13 +25,15 @@ const client = new Client({
 let stack: number[] = [],
   playerDeck: number[] = [],
   cpuDeck: number[] = [],
-  curr: number,
-  cpuSum = 0,
-  sum = 0,
-  gameStarted = false;
+  curr: number = 0,
+  cpuSum: number = 0,
+  sum: number = 0,
+  gameStarted: boolean = false;
 
 //Russian Roulette variables
 let bullets: number = 6;
+
+
 
 //When the bot is connected
 client.on("ready", () => {
@@ -41,180 +43,47 @@ client.on("ready", () => {
   client.user.setActivity(`${prefix} help`);
 });
 
-client.on("message", (msg: ) => {
-  if (!msg.content.startsWith("-") || msg.author.bot) return;
-  let args = msg.content.slice("-".length).split(" ");
-  const command = args.shift().toLowerCase();
+client.on("message", (msg: any) => {
 
-  //Play
-  if (command === "p" || command === "play") {
-    Play.execute(client, msg, args);
-  }
+    // ignore bots
+    if (msg.author.bot) return;
 
-  //Skip
-  else if (command === "skip") {
-    Skip.execute(client, msg);
-  }
+    //If the message does not start with the prefix return
+    if (!msg.content.startsWith(prefix)) return;
 
-  //Clear
-  else if (command === "clear") {
-    Clear.execute(client, msg);
-  }
+    const args: string[] = msg.content
+    .slice(prefix.length)
+    .trim()
+    .split(/ +/g);
 
-  //Queue
-  else if (command === "queue" || command === "q") {
-    Queue.execute(client, msg);
-  }
+    const command: string = args.shift()!.toLowerCase();
 
-  //Pause
-  else if (command === "pause") {
-    Pause.execute(client, msg);
-  }
 
-  //Resume
-  else if (command === "resume") {
-    Resume.execute(client, msg);
-  }
+    //Check if the command exists in the hashmap. It returns undefined if it doesn't exist
+    const currCommand = commandMap.get(command);
 
-  //Stop
-  else if (command === "stop") {
-    Stop.execute(client, msg);
-  }
+      
+    //Blackjack Start
+    if (currCommand === "blackjack")
+      gameStarted = currCommand.execute(msg, gameStarted, stack, curr, playerDeck, cpuDeck);
 
-  //Loop
-  else if (command === "loop") {
-    Loop.execute(client, msg);
-  }
+    //Blackjack Hit
+    else if (currCommand === "h" && gameStarted === true)
+      gameStarted = currCommand.execute(msg, curr, playerDeck, cpuDeck, stack, gameStarted, sum);
 
-  //Progress
-  else if (command === "progress" || command === "prog") {
-    Progress.execute(client, msg);
-  }
+    //Blackjack Stay
+    else if (currCommand === "s" && gameStarted === true)
+      gameStarted = currCommand.execute(msg, cpuSum, cpuDeck, sum, stack, playerDeck, curr, gameStarted);
 
-  //Russian Rulatte
-  else if (command === "rr") {
-    bullets = Rr.execute(msg, bullets);
-  }
+    else if (currCommand == "rr")
+      currCommand.execute(msg, bullets);
 
-  //Stats
-  else if (command === "stats") {
-    Stats.execute(msg, client);
-  }
-
-  //Help
-  else if (command === "help") {
-    Help.execute(msg);
-  }
-
-  //Rock paper scissors
-  else if (command === "rps") {
-    Rps.execute(msg);
-  }
-
-  //Countdown
-  else if (command === "countdown") {
-    Countdown.execute(msg, args);
-  }
-
-  //Roll
-  else if (command === "roll") {
-    Roll.execute(msg, args);
-  }
-
-  //Reddit
-  else if (command === "reddit") {
-    Reddit.execute(msg, args);
-  }
-
-  //Meme
-  else if (command === "meme") {
-    Meme.execute(msg);
-  }
-
-  //Moderation
-  /*
-  else if (command === "kick" || command === "ban") {
-    Moderation.execute(msg, command);
-  }
-  */
-
-  //CSGO Case
-  else if (command === "case") {
-    Case.execute(msg);
-  }
-
-  //Weather
-  else if (command === "weather") {
-    msg.channel.send("Sorry the weather command is currently not working :(");
-    //WeatherFile.execute(msg, args);
-  }
-
-  //Bitcoin
-  else if (command === "btc" || command === "bitcoin") {
-    Btc.execute(msg);
-  }
-
-  //Webshot
-  else if (command === "ws") {
-    args = args.toString();
-    WS.execute(args, msg);
-  }
-
-  //Covid
-  else if (command === "covid") {
-    Covid.execute(msg);
-  }
-
-  //Osu
-  else if (command === "osu") {
-    OSU.execute(msg, args);
-  }
-
-  //Blackjack Start
-  else if (command === "bj") {
-    gameStarted = BJ.execute(
-      msg,
-      gameStarted,
-      stack,
-      curr,
-      playerDeck,
-      cpuDeck
-    );
-    console.log("Game: " + gameStarted);
-  }
-
-  //Blackjack Hit
-  else if (command === "h" && gameStarted === true) {
-    gameStarted = BJhit.execute(
-      msg,
-      curr,
-      playerDeck,
-      cpuDeck,
-      stack,
-      gameStarted,
-      sum
-    );
-    console.log("Player Deck: " + playerDeck);
-  }
-
-  //Blackjack Stay
-  else if (command === "s" && gameStarted === true) {
-    gameStarted = BJStay.execute(
-      msg,
-      cpuSum,
-      cpuDeck,
-      sum,
-      stack,
-      playerDeck,
-      curr,
-      gameStarted
-    );
-  }
-
-  //Translate
-  else if (command === "translate") {
-    Translate.execute(msg);
-  }
+    //If the currCommand is not undefined
+    else if (currCommand)
+      currCommand.execute(msg, args);
+    else
+      msg.channel.send(`Command not found! Type ${prefix} help to see all commands`);
+  
 });
 
 client.login(process.env.DISCORD_KEY);
