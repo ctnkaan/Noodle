@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/ctnkaan/Noodle#readme",
   "dependencies": {
-    "@discordjs/opus": "^0.7.0",
+    "@discordjs/opus": "^0.8.0",
     "bing-translate-api": "^2.4.0",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
